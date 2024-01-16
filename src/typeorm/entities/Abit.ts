@@ -1,7 +1,8 @@
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Tel } from "./Tel";
 import { Pasport } from "./Pasort";
-import { Parent } from "./Parent";
+import { Mother } from "./Mother";
+import { Father } from "./Father";
 
 
 @Entity({ name:'abits'})
@@ -35,9 +36,14 @@ export class Abit {
     @JoinColumn()
     pasport: Pasport
 
-    @OneToMany(() => Parent, (parent) => parent.abit)
+    @OneToOne(() => Mother)
     @JoinColumn()
-    parents: Parent[]
+    mother: Mother
+
+    @OneToOne(() => Father)
+    @JoinColumn()
+    father: Father
+
 
 
 }
