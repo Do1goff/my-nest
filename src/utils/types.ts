@@ -29,6 +29,3 @@ export type CreateParentParams = {
     firstName:string
     lastName:string
 }
-export type ParentParams = {
-
-}

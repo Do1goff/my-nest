@@ -6,9 +6,8 @@ import { Tel } from './typeorm/entities/Tel';
 import { Pasport } from './typeorm/entities/Pasort';
 import { Abit } from './typeorm/entities/Abit';
 import { AbitsModule } from './abits/abits.module';
-import { Parent } from './typeorm/entities/Parent';
 import { Mother } from './typeorm/entities/Mother';
-import { Papa } from './typeorm/entities/Papa';
+import { Father } from './typeorm/entities/Father';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -22,9 +21,8 @@ import { Papa } from './typeorm/entities/Papa';
       Abit, 
       Tel, 
       Pasport,
-      Parent,
       Mother,
-      Papa,
+      Father,
     ],
     synchronize: true,
     dropSchema: true,

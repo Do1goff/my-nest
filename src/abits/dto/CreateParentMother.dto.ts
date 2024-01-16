@@ -1,4 +1,4 @@
-export class CreateParent {
+export class CreateParentDto {
     firstName:string
     lastName:string
 }

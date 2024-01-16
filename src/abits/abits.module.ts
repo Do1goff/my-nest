@@ -5,18 +5,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Abit } from 'src/typeorm/entities/Abit';
 import { Tel } from 'src/typeorm/entities/Tel';
 import { Pasport } from 'src/typeorm/entities/Pasort';
-import { Parent } from 'src/typeorm/entities/Parent';
 import { Mother } from 'src/typeorm/entities/Mother';
-import { Papa } from 'src/typeorm/entities/Papa';
+import { Father } from 'src/typeorm/entities/Father';
 
 @Module({
   imports: [TypeOrmModule.forFeature([
     Abit, 
     Tel, 
     Pasport,
-    Parent,
+    Father,
     Mother,
-    Papa,
   ])],
   providers: [AbitService],
   controllers: [AbitsController]

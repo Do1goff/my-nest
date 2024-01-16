@@ -1,11 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Abit } from 'src/typeorm/entities/Abit';
+import { Father } from 'src/typeorm/entities/Father';
 import { Mother } from 'src/typeorm/entities/Mother';
-import { Parent } from 'src/typeorm/entities/Parent';
 import { Pasport } from 'src/typeorm/entities/Pasort';
 import { Tel } from 'src/typeorm/entities/Tel';
-import { CreateAbitParams, CreateAbitPasportParams, CreateAbitTelParams, CreateParentParams, ParentParams, UpdateAbitParams, } from 'src/utils/types';
+import { CreateAbitParams, CreateAbitPasportParams, CreateAbitTelParams, CreateParentParams, UpdateAbitParams, } from 'src/utils/types';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -13,12 +13,12 @@ export class AbitService {
     constructor(
         @InjectRepository(Abit) private abitRepository: Repository<Abit> ,
         @InjectRepository(Tel) private telRepository: Repository<Tel> ,
-        @InjectRepository(Parent) private parentRepository: Repository<Parent> ,
+        @InjectRepository(Father) private fatherRepository: Repository<Father> ,
         @InjectRepository(Mother) private motherRepository: Repository<Mother> ,
         @InjectRepository(Pasport) private pasportRepository: Repository<Pasport>) {}
 
     findAbits() {
-        return this.abitRepository.find({ relations:['tels', 'pasport','parents']})
+        return this.abitRepository.find({ relations:['tels', 'pasport','mother', 'father']})
     }
 
     findOneAbit(id:number){
@@ -64,22 +64,30 @@ export class AbitService {
         return this.telRepository.save(newTel)
     }
 
-    async createMother(id:number, motherDetails: CreateParentParams, parentDetails:ParentParams) {
+    async createMother(id:number, MotherDetails: CreateParentParams) {
         const abit = await this.abitRepository.findOneBy({ id })
         if (!abit)
             throw new HttpException(
-                'Абитуриент не найден',
+                'Aбитуриент не найден',
                 HttpStatus.BAD_REQUEST)
-    
-            
-        
 
-        // const newMother = this.motherRepository.create({
-        //     ...motherDetails,
-        // })
-        // return this.motherRepository.save(newMother)
-                
+        const newMother = this.motherRepository.create(MotherDetails)
+        const savedMother = await this.motherRepository.save(newMother)
+        abit.mother = savedMother
+        return this.abitRepository.save(abit)
+    }
 
+    async createFather(id:number, FatherDetails: CreateParentParams) {
+        const abit = await this.abitRepository.findOneBy({ id })
+        if (!abit)
+            throw new HttpException(
+                'Aбитуриент не найден',
+                HttpStatus.BAD_REQUEST)
+
+        const newFather = this.fatherRepository.create(FatherDetails)
+        const savedFather = await this.fatherRepository.save(newFather)
+        abit.father = savedFather
+        return this.abitRepository.save(abit)
     }
 
 }

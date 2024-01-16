@@ -4,7 +4,7 @@ import { AbitService } from '../services/services.service';
 import { UpdateAbitDto } from '../dto/UpdateAbit.dto';
 import { CreateAbitPasportDto } from '../dto/CreateAbitPasport.dto';
 import { CreateAbitTelDto } from '../dto/CreateAbitTel.dto';
-import { CreateParentParams, ParentParams } from 'src/utils/types';
+import { CreateParentDto } from '../dto/CreateParentMother.dto';
 
 
 @Controller('abits')
@@ -46,9 +46,14 @@ export class AbitsController {
         return this.abitService.createAbitTel(id, createAbitTelDto)
     }
 
-    @Post(':id/parents/mothers')
-    createMother(@Param('id', ParseIntPipe) id:number, @Body() createMother: CreateParentParams, parentDetails:ParentParams){
-        return this.abitService.createMother(id, createMother, parentDetails)
+    @Post(':id/mothers')
+    createMother(@Param('id', ParseIntPipe) id:number, @Body() createMother: CreateParentDto){
+        return this.abitService.createMother(id, createMother)
+    }
+
+    @Post(':id/fathers')
+    createFather(@Param('id', ParseIntPipe) id:number, @Body() createFather: CreateParentDto){
+        return this.abitService.createFather(id, createFather)
     }
 
 }
