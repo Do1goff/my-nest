@@ -1,22 +1,26 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity({ name:'pasport'})
-export class Pasport {
+@Entity({ name:'ege'})
+export class EGE {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
-    seria: number
+    mat: number
 
     @Column()
-    num: number
+    rus: number
 
     @Column()
-    mest_rojd: string
+    phiz: number
 
     @Column()
-    data_v: Date
+    inf: number
 
     @Column()
-    kem_v: string
+    geo: number
+
+    @Column()
+    obsh: number
+
 }

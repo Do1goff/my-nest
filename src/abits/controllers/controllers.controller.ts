@@ -3,7 +3,6 @@ import { CreateAbitDto } from '../dto/CreateAbit.dto';
 import { AbitService } from '../services/services.service';
 import { UpdateAbitDto } from '../dto/UpdateAbit.dto';
 import { CreateAbitPasportDto } from '../dto/CreateAbitPasport.dto';
-import { CreateAbitTelDto } from '../dto/CreateAbitTel.dto';
 import { CreateParentDto } from '../dto/CreateParentMother.dto';
 
 
@@ -39,11 +38,6 @@ export class AbitsController {
     @Post(':id/pasports')
     createAbitPasoprt(@Param('id', ParseIntPipe) id:number, @Body() createAbitPasportDto: CreateAbitPasportDto) {
         return this.abitService.createAbitPasport(id, createAbitPasportDto)
-    }
-
-    @Post(':id/tels')
-    createAbitTel(@Param('id', ParseIntPipe) id:number, @Body() createAbitTelDto: CreateAbitTelDto){
-        return this.abitService.createAbitTel(id, createAbitTelDto)
     }
 
     @Post(':id/mothers')

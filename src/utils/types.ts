@@ -13,9 +13,6 @@ export type CreateAbitPasportParams = {
     data_v: Date
     kem_v: string
 }
-export type CreateAbitTelParams = {
-    number:number
-}
 export type UpdateAbitParams = {
     firstName: string
     lastName: string

@@ -1,18 +1,16 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Abit } from 'src/typeorm/entities/Abit';
-import { Father } from 'src/typeorm/entities/Father';
-import { Mother } from 'src/typeorm/entities/Mother';
-import { Pasport } from 'src/typeorm/entities/Pasort';
-import { Tel } from 'src/typeorm/entities/Tel';
-import { CreateAbitParams, CreateAbitPasportParams, CreateAbitTelParams, CreateParentParams, UpdateAbitParams, } from 'src/utils/types';
+import { Father } from 'src/typeorm/entities/Parent/Father';
+import { Mother } from 'src/typeorm/entities/Parent/Mother';
+import { Pasport } from 'src/typeorm/entities/Docs/Pasport';
+import { CreateAbitParams, CreateAbitPasportParams, CreateParentParams, UpdateAbitParams, } from 'src/utils/types';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class AbitService {
     constructor(
         @InjectRepository(Abit) private abitRepository: Repository<Abit> ,
-        @InjectRepository(Tel) private telRepository: Repository<Tel> ,
         @InjectRepository(Father) private fatherRepository: Repository<Father> ,
         @InjectRepository(Mother) private motherRepository: Repository<Mother> ,
         @InjectRepository(Pasport) private pasportRepository: Repository<Pasport>) {}
@@ -53,16 +51,16 @@ export class AbitService {
         return this.abitRepository.save(abit)
     }
 
-    async createAbitTel(id:number, abitTelDetails: CreateAbitTelParams) {
-        const abit = await this.abitRepository.findOneBy({ id })
-        if (!abit)
-            throw new HttpException(
-                'Абитуриент не найден',
-                HttpStatus.BAD_REQUEST)
+    // async createAbitTel(id:number, abitTelDetails: CreateAbitTelParams) {
+    //     const abit = await this.abitRepository.findOneBy({ id })
+    //     if (!abit)
+    //         throw new HttpException(
+    //             'Абитуриент не найден',
+    //             HttpStatus.BAD_REQUEST)
 
-        const newTel = this.telRepository.create({...abitTelDetails, abit,})
-        return this.telRepository.save(newTel)
-    }
+    //     const newTel = this.telRepository.create({...abitTelDetails, abit,})
+    //     return this.telRepository.save(newTel)
+    // }
 
     async createMother(id:number, MotherDetails: CreateParentParams) {
         const abit = await this.abitRepository.findOneBy({ id })
