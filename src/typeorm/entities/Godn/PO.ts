@@ -5,7 +5,7 @@ export class P_O {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({nullable:true})
     p_o: string
 
 }

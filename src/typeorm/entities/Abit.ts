@@ -18,6 +18,7 @@ import { LD } from "./Personal/LD";
 import { Dop } from "./Rating/Dop";
 import { EGE } from "./Rating/EGE";
 import { Ph_P } from "./Rating/Ph_P";
+import { Spec } from "./Personal/Spec";
 
 
 @Entity({ name:'abits'})
@@ -35,13 +36,7 @@ export class Abit {
     otchestvo: string
 
     @Column()
-    n_ld: number
-
-    @Column()
-    spec: number
-
-    @Column()
-    l_n: string
+    n_ld: string
 
     @OneToOne(() => Pasport)
     @JoinColumn()
@@ -118,4 +113,8 @@ export class Abit {
     @OneToOne(() => Ph_P)
     @JoinColumn()
     ph_p: Ph_P
+
+    @OneToOne(() => Spec)
+    @JoinColumn()
+    spec: Spec
 }

@@ -5,7 +5,7 @@ export class MVD {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({nullable:true})
     mvd: string
 
 }

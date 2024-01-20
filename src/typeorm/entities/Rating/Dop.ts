@@ -5,12 +5,12 @@ export class Dop {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({nullable:true})
     kvot:string
 
-    @Column()
+    @Column({nullable:true})
     lgot:string
 
-    @Column()
+    @Column({nullable:true})
     ind_dost:string
 }

@@ -5,10 +5,10 @@ export class Obrazov {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({nullable:true})
     obrazov: string
 
-    @Column()
+    @Column({nullable:true})
     doc_obr:string
 
 }

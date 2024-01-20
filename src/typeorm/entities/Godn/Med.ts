@@ -5,7 +5,7 @@ export class Med {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({nullable:true})
     med: string
 
 }

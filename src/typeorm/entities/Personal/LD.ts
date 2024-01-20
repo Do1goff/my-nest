@@ -7,13 +7,13 @@ export class LD {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({nullable:true})
     reg_ld: string
 
-    @Column()
+    @Column({nullable:true})
     data_reg_ld:string
 
-    @Column()
+    @Column({nullable:true})
     arm_ld:string
 
 }

@@ -5,7 +5,7 @@ export class ZGT {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({nullable:true})
     zgt: string
 
 }

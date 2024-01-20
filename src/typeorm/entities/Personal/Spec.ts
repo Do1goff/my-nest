@@ -1,26 +1,25 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity({ name:'ege'})
-export class EGE {
+
+
+@Entity({ name:'spec'})
+export class Spec {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column({nullable:true})
-    mat: number
+    spec_vk: string
 
     @Column({nullable:true})
-    rus: number
+    spec1:string
 
     @Column({nullable:true})
-    phiz: number
+    spec2:string
 
     @Column({nullable:true})
-    inf: number
+    spec3:string
 
     @Column({nullable:true})
-    geo: number
-
-    @Column({nullable:true})
-    obsh: number
+    spec:string
 
 }

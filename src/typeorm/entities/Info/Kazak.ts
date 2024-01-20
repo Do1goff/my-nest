@@ -5,6 +5,6 @@ export class Kazak {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({nullable:true})
     kazak:string
 }

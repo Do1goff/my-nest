@@ -22,6 +22,7 @@ import { LD } from '../typeorm/entities/Personal/LD';
 import { Dop } from '../typeorm/entities/Rating/Dop';
 import { EGE } from '../typeorm/entities/Rating/EGE';
 import { Ph_P } from '../typeorm/entities/Rating/Ph_P';
+import { Spec } from 'src/typeorm/entities/Personal/Spec';
 
 @Module({
   imports: [TypeOrmModule.forFeature([
@@ -44,7 +45,8 @@ import { Ph_P } from '../typeorm/entities/Rating/Ph_P';
     LD,
     Dop,
     EGE,
-    Ph_P
+    Ph_P,
+    Spec
   ])],
   providers: [AbitService],
   controllers: [AbitsController]

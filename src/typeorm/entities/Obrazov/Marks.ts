@@ -5,37 +5,37 @@ export class Marks {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({nullable:true})
     rus: string
 
-    @Column()
+    @Column({nullable:true})
     mat: string
 
-    @Column()
+    @Column({nullable:true})
     phiz: string
 
-    @Column()
+    @Column({nullable:true})
     inf: string
 
-    @Column()
+    @Column({nullable:true})
     obsh: string
 
-    @Column()
+    @Column({nullable:true})
     geo: string
 
-    @Column()
+    @Column({nullable:true})
     him: string
 
-    @Column()
+    @Column({nullable:true})
     ist: string
 
-    @Column()
+    @Column({nullable:true})
     bio: string
 
-    @Column()
+    @Column({nullable:true})
     ph_p: string
 
-    @Column()
+    @Column({nullable:true})
     lang: string
 
 }

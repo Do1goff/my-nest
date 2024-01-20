@@ -6,21 +6,21 @@ export class Ph_P{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({nullable:true})
     n_power: number
 
-    @Column()
+    @Column({nullable:true})
     power:number
 
-    @Column()
+    @Column({nullable:true})
     n_speed:number
 
-    @Column()
+    @Column({nullable:true})
     speed:number
 
-    @Column()
+    @Column({nullable:true})
     n_vnsl:number
 
-    @Column()
+    @Column({nullable:true})
     vnsl:number
 }
