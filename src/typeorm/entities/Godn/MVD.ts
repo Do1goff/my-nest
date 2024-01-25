@@ -8,4 +8,6 @@ export class MVD {
     @Column({nullable:true})
     mvd: string
 
+    @Column({nullable:true})
+    otvetstv: string
 }

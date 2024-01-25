@@ -1,21 +1,26 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-
-@Entity({ name:'fathers'})
-export class Father {
+@Entity({ name:'vst_isp'})
+export class Vst_Isp {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column({nullable:true})
-    firstName: string
+    mat: number
 
     @Column({nullable:true})
-    lastName: string
+    rus: number
 
     @Column({nullable:true})
-    otchestvo: string
+    phiz: number
 
     @Column({nullable:true})
-    dob: string
+    inf: number
+
+    @Column({nullable:true})
+    geo: number
+
+    @Column({nullable:true})
+    obsh: number
 
 }

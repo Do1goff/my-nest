@@ -16,4 +16,6 @@ export class LD {
     @Column({nullable:true})
     arm_ld:string
 
+    @Column({nullable:true})
+    nalich_ld:string
 }

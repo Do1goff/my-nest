@@ -1,21 +1,21 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 
-@Entity({ name:'fathers'})
-export class Father {
+@Entity({ name:'family'})
+export class Family {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column({nullable:true})
-    firstName: string
+    adres: string
 
     @Column({nullable:true})
-    lastName: string
+    soc_status: string
 
     @Column({nullable:true})
-    otchestvo: string
+    sirota: string
 
     @Column({nullable:true})
-    dob: string
+    deti: string
 
 }

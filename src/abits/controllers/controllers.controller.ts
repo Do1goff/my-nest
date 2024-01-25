@@ -21,6 +21,11 @@ import { CreateSpecDto } from '../dto/personal/CreateSpecDto.dto';
 import { CreateDopDto } from '../dto/rating/CreateDopDto.dto';
 import { CreateEGEDto } from '../dto/rating/CreateEGEDto.dto';
 import { CreatePh_PDto } from '../dto/rating/CreatePh_PDto.dto';
+import { CreateVst_IspDto } from '../dto/rating/CreateVst_IspDto.dto';
+import { CreateFamilyDto } from '../dto/parent/CreateFamilyDto.dto';
+import { CreateTek_ObrDto } from '../dto/obrazov/CteateTek_ObrDto.dto';
+import { CreateVSDto } from '../dto/Info/CreateVSDto.dto';
+import { CreateZachislDto } from '../dto/personal/CreateZachislDto.dto';
 
 
 @Controller('abits')
@@ -65,6 +70,11 @@ export class AbitsController {
     @Post(':id/fathers')
     createFather(@Param('id', ParseIntPipe) id:number, @Body() createFather: CreateParentDto){
         return this.abitService.createFather(id, createFather)
+    }
+
+    @Post(':id/family')
+    createFamily(@Param('id', ParseIntPipe) id:number, @Body() createFamily: CreateFamilyDto){
+        return this.abitService.createFamily(id, createFamily)
     }
 
     @Post(':id/inn')
@@ -112,9 +122,19 @@ export class AbitsController {
         return this.abitService.createVK(id, createVK)
     }
 
+    @Post(':id/vs')
+    createVS(@Param('id', ParseIntPipe) id:number, @Body() createVS: CreateVSDto){
+        return this.abitService.createVS(id, createVS)
+    }
+
     @Post(':id/obrazov')
     createObrazov(@Param('id', ParseIntPipe) id:number, @Body() createObrazov: CreateObrazovDto){
         return this.abitService.createObrazov(id, createObrazov)
+    }
+
+    @Post(':id/tek_obr')
+    createTek_Obr(@Param('id', ParseIntPipe) id:number, @Body() createTek_Obr: CreateTek_ObrDto){
+        return this.abitService.createTek_Obr(id, createTek_Obr)
     }
 
     @Post(':id/marks')
@@ -132,6 +152,11 @@ export class AbitsController {
         return this.abitService.createLD(id, createLD)
     }
 
+    @Post(':id/zachisl')
+    createZachisl(@Param('id', ParseIntPipe) id:number, @Body() createZachisl: CreateZachislDto){
+        return this.abitService.createZachisl(id, createZachisl)
+    }
+
     @Post(':id/spec')
     createSpec(@Param('id', ParseIntPipe) id:number, @Body() createSpec: CreateSpecDto){
         return this.abitService.createSpec(id, createSpec)
@@ -145,6 +170,11 @@ export class AbitsController {
     @Post(':id/ege')
     createEGE(@Param('id', ParseIntPipe) id:number, @Body() createEGE: CreateEGEDto){
         return this.abitService.createEGE(id, createEGE)
+    }
+
+    @Post(':id/vst_isp')
+    createVst_Isp(@Param('id', ParseIntPipe) id:number, @Body() createVst_Isp: CreateVst_IspDto){
+        return this.abitService.createVst_Isp(id, createVst_Isp)
     }
 
     @Post(':id/ph_p')

@@ -23,6 +23,11 @@ import { Dop } from '../typeorm/entities/Rating/Dop';
 import { EGE } from '../typeorm/entities/Rating/EGE';
 import { Ph_P } from '../typeorm/entities/Rating/Ph_P';
 import { Spec } from 'src/typeorm/entities/Personal/Spec';
+import { Vst_Isp } from 'src/typeorm/entities/Rating/Vst_Isp';
+import { Family } from 'src/typeorm/entities/Parent/Family';
+import { Tek_Obr } from 'src/typeorm/entities/Obrazov/Tek_Obr';
+import { VS } from 'src/typeorm/entities/Info/VS';
+import { Zachisl } from 'src/typeorm/entities/Personal/Zachisl';
 
 @Module({
   imports: [TypeOrmModule.forFeature([
@@ -37,16 +42,21 @@ import { Spec } from 'src/typeorm/entities/Personal/Spec';
     Info,
     Kazak,
     VK,
+    VS,
     Marks,
     Obrazov,
+    Tek_Obr,
     Mother,
     Father,
+    Family,
     L_Num,
     LD,
+    Zachisl,
     Dop,
     EGE,
     Ph_P,
-    Spec
+    Spec,
+    Vst_Isp,
   ])],
   providers: [AbitService],
   controllers: [AbitsController]

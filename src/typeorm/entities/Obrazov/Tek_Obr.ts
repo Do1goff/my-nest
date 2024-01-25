@@ -1,25 +1,31 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity({ name:'vk'})
-export class VK {
+@Entity({ name:'tek_obr'})
+export class Tek_Obr {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column({nullable:true})
-    v_o:string
+    cat: string
 
     @Column({nullable:true})
-    vk:string
+    kurs:string
 
     @Column({nullable:true})
-    tel:string
+    data_zach: string
 
     @Column({nullable:true})
-    nach:string
+    data_oconch: string
 
     @Column({nullable:true})
-    adres:string
+    obrazov: string
 
     @Column({nullable:true})
-    email:string
+    adres: string
+
+    @Column({nullable:true})
+    srok: string
+
+    @Column({nullable:true})
+    semestrs: string
 }

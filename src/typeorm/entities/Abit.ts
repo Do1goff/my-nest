@@ -19,6 +19,11 @@ import { Dop } from "./Rating/Dop";
 import { EGE } from "./Rating/EGE";
 import { Ph_P } from "./Rating/Ph_P";
 import { Spec } from "./Personal/Spec";
+import { Vst_Isp } from "./Rating/Vst_Isp";
+import {Family} from "./Parent/Family"
+import { Tek_Obr } from "./Obrazov/Tek_Obr";
+import { VS } from "./Info/VS";
+import { Zachisl } from "./Personal/Zachisl";
 
 
 @Entity({ name:'abits'})
@@ -49,6 +54,10 @@ export class Abit {
     @OneToOne(() => Father)
     @JoinColumn()
     father: Father
+
+    @OneToOne(() => Family)
+    @JoinColumn()
+    family: Family
 
     @OneToOne(() => INN)
     @JoinColumn()
@@ -86,6 +95,10 @@ export class Abit {
     @JoinColumn()
     vk: VK
 
+    @OneToOne(() => VS)
+    @JoinColumn()
+    vs: VS
+
     @OneToOne(() => Marks)
     @JoinColumn()
     marks: Marks
@@ -93,6 +106,10 @@ export class Abit {
     @OneToOne(() => Obrazov)
     @JoinColumn()
     obrazov: Obrazov
+
+    @OneToOne(() => Tek_Obr)
+    @JoinColumn()
+    tek_obr: Tek_Obr
 
     @OneToOne(() => L_Num)
     @JoinColumn()
@@ -102,6 +119,10 @@ export class Abit {
     @JoinColumn()
     ld: LD
 
+    @OneToOne(() => Zachisl)
+    @JoinColumn()
+    zachisl: Zachisl
+
     @OneToOne(() => Dop)
     @JoinColumn()
     dop: Dop
@@ -109,6 +130,10 @@ export class Abit {
     @OneToOne(() => EGE)
     @JoinColumn()
     ege: EGE
+
+    @OneToOne(() => Vst_Isp)
+    @JoinColumn()
+    vst_isp: Vst_Isp
 
     @OneToOne(() => Ph_P)
     @JoinColumn()

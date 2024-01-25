@@ -24,6 +24,12 @@ import { Dop } from './typeorm/entities/Rating/Dop';
 import { EGE } from './typeorm/entities/Rating/EGE';
 import { Ph_P } from './typeorm/entities/Rating/Ph_P';
 import { Spec } from './typeorm/entities/Personal/Spec';
+import { Vst_Isp } from './typeorm/entities/Rating/Vst_Isp';
+import { Family } from './typeorm/entities/Parent/Family';
+import { Tek_Obr } from './typeorm/entities/Obrazov/Tek_Obr';
+import { VS } from './typeorm/entities/Info/VS';
+import { Zachisl } from './typeorm/entities/Personal/Zachisl';
+
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -45,16 +51,21 @@ import { Spec } from './typeorm/entities/Personal/Spec';
       Info,
       Kazak,
       VK,
+      VS,
       Marks,
       Obrazov,
+      Tek_Obr,
       Mother,
       Father,
+      Family,
       L_Num,
       LD,
+      Zachisl,
       Dop,
       EGE,
       Ph_P,
-      Spec
+      Spec,
+      Vst_Isp,
     ],
     synchronize: true,
     dropSchema: true,

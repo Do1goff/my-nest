@@ -12,4 +12,9 @@ export class Mother {
     @Column({nullable:true})
     lastName: string
 
+    @Column({nullable:true})
+    otchestvo: string
+
+    @Column({nullable:true})
+    dob: string
 }

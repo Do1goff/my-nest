@@ -4,7 +4,7 @@ import { Abit } from 'src/typeorm/entities/Abit';
 import { Father } from 'src/typeorm/entities/Parent/Father';
 import { Mother } from 'src/typeorm/entities/Parent/Mother';
 import { Pasport } from 'src/typeorm/entities/Docs/Pasport';
-import { CreateAbitParams, CreateAbitPasportParams, CreateDopParams, CreateEGEParams, CreateINNParams, CreateInfoParams, CreateKazakParams, CreateLDParams, CreateL_NumParams, CreateMVDParams, CreateMarksParams, CreateMedParams, CreateObrazovParams, CreatePOParams, CreateParentParams, CreatePh_PParams, CreateSNILSParams, CreateSpecParams, CreateVKParams, CreateZGTParams, UpdateAbitParams, } from 'src/utils/types';
+import { CreateAbitParams, CreateAbitPasportParams, CreateDopParams, CreateEGEParams, CreateFamilyParams, CreateINNParams, CreateInfoParams, CreateKazakParams, CreateLDParams, CreateL_NumParams, CreateMVDParams, CreateMarksParams, CreateMedParams, CreateObrazovParams, CreatePOParams, CreateParentParams, CreatePh_PParams, CreateSNILSParams, CreateSpecParams, CreateTek_ObrParams, CreateVKParams, CreateVSParams, CreateVst_IspParams, CreateZGTParams, CreateZachislParams, UpdateAbitParams, } from 'src/utils/types';
 import { Repository } from 'typeorm';
 import { INN } from 'src/typeorm/entities/Docs/INN';
 import { SNILS } from 'src/typeorm/entities/Docs/SNILS';
@@ -23,6 +23,11 @@ import { Dop } from 'src/typeorm/entities/Rating/Dop';
 import { EGE } from 'src/typeorm/entities/Rating/EGE';
 import { Ph_P } from 'src/typeorm/entities/Rating/Ph_P';
 import { Spec } from 'src/typeorm/entities/Personal/Spec';
+import { Vst_Isp } from 'src/typeorm/entities/Rating/Vst_Isp';
+import { Family } from 'src/typeorm/entities/Parent/Family';
+import { Tek_Obr } from 'src/typeorm/entities/Obrazov/Tek_Obr';
+import { VS } from 'src/typeorm/entities/Info/VS';
+import { Zachisl } from 'src/typeorm/entities/Personal/Zachisl';
 
 @Injectable()
 export class AbitService {
@@ -30,6 +35,7 @@ export class AbitService {
         @InjectRepository(Abit) private abitRepository: Repository<Abit> ,
         @InjectRepository(Father) private fatherRepository: Repository<Father> ,
         @InjectRepository(Mother) private motherRepository: Repository<Mother> ,
+        @InjectRepository(Family) private familyRepository: Repository<Family> ,
         @InjectRepository(INN) private INNRepository: Repository<INN> ,
         @InjectRepository(SNILS) private SNILSRepository: Repository<SNILS> ,
         @InjectRepository(Med) private MedRepository: Repository<Med> ,
@@ -39,13 +45,17 @@ export class AbitService {
         @InjectRepository(Info) private InfoRepository: Repository<Info> ,
         @InjectRepository(Kazak) private KazakRepository: Repository<Kazak> ,
         @InjectRepository(VK) private VKRepository: Repository<VK> ,
+        @InjectRepository(VS) private VSRepository: Repository<VS> ,
         @InjectRepository(Marks) private MarksRepository: Repository<Marks> ,
         @InjectRepository(Obrazov) private ObrazovRepository: Repository<Obrazov> ,
+        @InjectRepository(Tek_Obr) private Tek_ObrRepository: Repository<Tek_Obr> ,
         @InjectRepository(L_Num) private L_NumRepository: Repository<L_Num> ,
         @InjectRepository(LD) private LDRepository: Repository<LD> ,
+        @InjectRepository(Zachisl) private ZachislRepository: Repository<Zachisl> ,
         @InjectRepository(Spec) private SpecRepository: Repository<Spec> ,
         @InjectRepository(Dop) private DopRepository: Repository<Dop> ,
         @InjectRepository(EGE) private EGERepository: Repository<EGE> ,
+        @InjectRepository(Vst_Isp) private Vst_IspRepository: Repository<Vst_Isp> ,
         @InjectRepository(Ph_P) private Ph_PRepository: Repository<Ph_P> ,
         @InjectRepository(Pasport) private pasportRepository: Repository<Pasport>) {}
     
@@ -55,15 +65,20 @@ export class AbitService {
             'pasport',
             'mother',
             'father',
+            'family',
             'ld',
             'l_num',
+            'zachisl',
             'spec',
             'ege',
+            'vst_isp',
             'ph_p',
             'dop',
             'obrazov',
+            'tek_obr',
             'marks',
             'vk',
+            'vs',
             'inn',
             'snils',
             'med',
@@ -130,6 +145,19 @@ export class AbitService {
         const newFather = this.fatherRepository.create(FatherDetails)
         const savedFather = await this.fatherRepository.save(newFather)
         abit.father = savedFather
+        return this.abitRepository.save(abit)
+    }
+
+    async createFamily(id:number, FamilyDetails: CreateFamilyParams) {
+        const abit = await this.abitRepository.findOneBy({ id })
+        if (!abit)
+            throw new HttpException(
+                'Aбитуриент не найден',
+                HttpStatus.BAD_REQUEST)
+
+        const newFamily = this.familyRepository.create(FamilyDetails)
+        const savedFamily = await this.familyRepository.save(newFamily)
+        abit.family = savedFamily
         return this.abitRepository.save(abit)
     }
 
@@ -250,6 +278,19 @@ export class AbitService {
         return this.abitRepository.save(abit)
     }
 
+    async createVS(id:number, VSDetails: CreateVSParams) {
+        const abit = await this.abitRepository.findOneBy({ id })
+        if (!abit)
+            throw new HttpException(
+                'Aбитуриент не найден',
+                HttpStatus.BAD_REQUEST)
+
+        const newVS = this.VSRepository.create(VSDetails)
+        const savedVS = await this.VSRepository.save(newVS)
+        abit.vs = savedVS
+        return this.abitRepository.save(abit)
+    }
+
     async createMarks(id:number, MarksDetails: CreateMarksParams) {
         const abit = await this.abitRepository.findOneBy({ id })
         if (!abit)
@@ -276,6 +317,19 @@ export class AbitService {
         return this.abitRepository.save(abit)
     }
 
+    async createTek_Obr(id:number, Tek_ObrDetails: CreateTek_ObrParams) {
+        const abit = await this.abitRepository.findOneBy({ id })
+        if (!abit)
+            throw new HttpException(
+                'Aбитуриент не найден',
+                HttpStatus.BAD_REQUEST)
+
+        const newTek_Obr = this.Tek_ObrRepository.create(Tek_ObrDetails)
+        const savedTek_Obr = await this.Tek_ObrRepository.save(newTek_Obr)
+        abit.tek_obr = savedTek_Obr
+        return this.abitRepository.save(abit)
+    }
+
     async createL_Num(id:number, L_NumDetails: CreateL_NumParams) {
         const abit = await this.abitRepository.findOneBy({ id })
         if (!abit)
@@ -299,6 +353,19 @@ export class AbitService {
         const newLD = this.LDRepository.create(LDDetails)
         const savedLD = await this.LDRepository.save(newLD)
         abit.ld = savedLD
+        return this.abitRepository.save(abit)
+    }
+
+    async createZachisl(id:number, ZachislDetails: CreateZachislParams) {
+        const abit = await this.abitRepository.findOneBy({ id })
+        if (!abit)
+            throw new HttpException(
+                'Aбитуриент не найден',
+                HttpStatus.BAD_REQUEST)
+
+        const newZachisl = this.ZachislRepository.create(ZachislDetails)
+        const savedZachisl = await this.ZachislRepository.save(newZachisl)
+        abit.zachisl = savedZachisl
         return this.abitRepository.save(abit)
     }
 
@@ -340,6 +407,19 @@ export class AbitService {
         const newEGE = this.EGERepository.create(EGEDetails)
         const savedEGE = await this.EGERepository.save(newEGE)
         abit.ege = savedEGE
+        return this.abitRepository.save(abit)
+    }
+
+    async createVst_Isp(id:number, Vst_IspDetails: CreateVst_IspParams) {
+        const abit = await this.abitRepository.findOneBy({ id })
+        if (!abit)
+            throw new HttpException(
+                'Aбитуриент не найден',
+                HttpStatus.BAD_REQUEST)
+
+        const newVst_Isp = this.Vst_IspRepository.create(Vst_IspDetails)
+        const savedVst_Isp = await this.Vst_IspRepository.save(newVst_Isp)
+        abit.vst_isp = savedVst_Isp
         return this.abitRepository.save(abit)
     }
     async createPh_P(id:number, Ph_PDetails: CreatePh_PParams) {
