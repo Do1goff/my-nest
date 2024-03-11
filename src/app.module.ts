@@ -1,75 +1,40 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Pasport } from './typeorm/entities/Docs/Pasport';
-import { Abit } from './typeorm/entities/Abit';
-import { AbitsModule } from './abits/abits.module';
-import { Mother } from './typeorm/entities/Parent/Mother';
-import { Father } from './typeorm/entities/Parent/Father';
-import { INN } from './typeorm/entities/Docs/INN';
-import { SNILS } from './typeorm/entities/Docs/SNILS';
-import { Med } from './typeorm/entities/Godn/Med';
-import { MVD } from './typeorm/entities/Godn/MVD';
-import { P_O } from './typeorm/entities/Godn/PO';
-import { ZGT } from './typeorm/entities/Godn/ZGT';
-import { Info } from './typeorm/entities/Info/Info';
-import { Kazak } from './typeorm/entities/Info/Kazak';
-import { VK } from './typeorm/entities/Info/VK';
-import { Marks } from './typeorm/entities/Obrazov/Marks';
-import { Obrazov } from './typeorm/entities/Obrazov/Obrazov';
-import { L_Num } from './typeorm/entities/Personal/L_Num';
-import { LD } from './typeorm/entities/Personal/LD';
-import { Dop } from './typeorm/entities/Rating/Dop';
-import { EGE } from './typeorm/entities/Rating/EGE';
-import { Ph_P } from './typeorm/entities/Rating/Ph_P';
-import { Spec } from './typeorm/entities/Personal/Spec';
-import { Vst_Isp } from './typeorm/entities/Rating/Vst_Isp';
-import { Family } from './typeorm/entities/Parent/Family';
-import { Tek_Obr } from './typeorm/entities/Obrazov/Tek_Obr';
-import { VS } from './typeorm/entities/Info/VS';
-import { Zachisl } from './typeorm/entities/Personal/Zachisl';
-
+import { Module } from '@nestjs/common'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { AbitsModule } from './abits/abits.module'
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
+import { CommissionModule } from './commission/commission.module'
+import { EducationModule } from './education/education.module'
+import { EgeMarksModule } from './ege/egeMarks.module'
+import { EntranceTestModule } from './entranceTest/entranceTest.module'
+import { ExaminationGroupModule } from './examinationGroup/examinationGroup.module'
+import { MilitaryCommissariatModule } from './militaryCommissariat/militaryCommissariat.module'
+import { SchoolMarksModule } from './schoolMarks/schoolMarks.module'
+import { SportModule } from './sport/sport.module'
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
-    type: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    username:'root',
-    password:'12345',
-    database:'my-sql',
-    entities:[ 
-      Abit,
-      INN,
-      Pasport,
-      SNILS,
-      Med,
-      MVD,
-      P_O,
-      ZGT,
-      Info,
-      Kazak,
-      VK,
-      VS,
-      Marks,
-      Obrazov,
-      Tek_Obr,
-      Mother,
-      Father,
-      Family,
-      L_Num,
-      LD,
-      Zachisl,
-      Dop,
-      EGE,
-      Ph_P,
-      Spec,
-      Vst_Isp,
-    ],
-    synchronize: true,
-    dropSchema: true,
-  }), AbitsModule, AbitsModule],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: '12345',
+      database: 'my-sql',
+      entities: ['dist/**/*.entity{.ts,.js}'],
+      synchronize: true,
+      dropSchema: true,
+    }),
+    AbitsModule,
+    EgeMarksModule,
+    MilitaryCommissariatModule,
+    EducationModule,
+    EntranceTestModule,
+    SchoolMarksModule,
+    SportModule,
+    CommissionModule,
+    ExaminationGroupModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
