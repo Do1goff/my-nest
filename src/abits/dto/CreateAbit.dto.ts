@@ -1,27 +1,29 @@
 import {
   IsArray,
   IsBoolean,
-  IsDate,
   IsDateString,
   IsEnum,
   IsJSON,
   IsNotEmpty,
   IsNumber,
   IsOptional,
-  IsPhoneNumber,
-  IsString,
+  IsString
 } from 'class-validator'
 import {
+  EducationData,
   ExpulsionData,
+  FamilySocialStatusType,
   FamilyStatusType,
   GenderType,
   LdType,
+  MedType,
   MilitaryServiceData,
-  MvdProsecutionType,
+  MvdType,
   PassportData,
-  PersonalData,
   PpoType,
-  SecretAccessType
+  SCType,
+  SecretAccessType,
+  UncanceledEducationData
 } from '../entity/abit.entity'
 
 export class CreateAbitDto {
@@ -37,7 +39,6 @@ export class CreateAbitDto {
 
   @IsOptional()
   @IsString()
-  @IsNotEmpty()
   surName: string;
 
   @IsOptional()
@@ -54,20 +55,12 @@ export class CreateAbitDto {
   gender: GenderType;
 
   @IsOptional()
-  @IsPhoneNumber()
-  telephone: string;
-
-  @IsOptional()
-  @IsPhoneNumber()
-  telephone2: string;
-
-  @IsOptional()
   @IsString()
   residence: string;
 
   @IsOptional()
-  @IsString()
-  secondCitizenship: string;
+  @IsEnum(SCType)
+  secondCitizenship: SCType;
 
   @IsOptional()
   @IsString()
@@ -78,7 +71,7 @@ export class CreateAbitDto {
   personal_file_reg: string;
 
   @IsOptional()
-  @IsDate()
+  @IsDateString()
   personal_file_date_reg: Date;
 
   @IsOptional()
@@ -98,8 +91,8 @@ export class CreateAbitDto {
   family_address: string;
 
   @IsOptional()
-  @IsString()
-  family_social_status: string;
+  @IsEnum(FamilySocialStatusType)
+  family_social_status: FamilySocialStatusType;
 
   @IsOptional()
   @IsNumber()
@@ -108,22 +101,6 @@ export class CreateAbitDto {
   @IsOptional()
   @IsNumber()
   abit_childrens: number;
-
-  @IsOptional()
-  @IsString()
-  mother: PersonalData;
-  
-  @IsOptional()
-  @IsBoolean()
-  mother_fail: boolean;
-  
-  @IsOptional()
-  @IsJSON()
-  father: PersonalData;
-
-  @IsOptional()
-  @IsBoolean()
-  father_fail: boolean;
   
   @IsOptional()
   @IsDateString()
@@ -156,7 +133,7 @@ export class CreateAbitDto {
   @IsOptional()
   @IsEnum(SecretAccessType)
   document_secrets_access: SecretAccessType;
-
+ 
   @IsOptional()
   @IsString()
   document_snils: string;
@@ -166,8 +143,8 @@ export class CreateAbitDto {
   document_inn: string;
 
   @IsOptional()
-  @IsBoolean()
-  document_medical_certificate: boolean;
+  @IsEnum(MedType)
+  document_medical_certificate: MedType;
 
   @IsOptional()
   @IsEnum(PpoType)
@@ -176,6 +153,14 @@ export class CreateAbitDto {
   @IsOptional()
   @IsJSON()
   document_passport: PassportData;
+
+  @IsOptional()
+  @IsJSON()
+  education: EducationData;
+
+  @IsOptional()
+  @IsJSON()
+  uncanceledEducation: UncanceledEducationData;
 
   @IsOptional()
   @IsBoolean()
@@ -190,10 +175,14 @@ export class CreateAbitDto {
   document_education_presence: boolean;
 
   @IsOptional()
-  @IsBoolean()
-  document_mvd_availability: boolean;
+  @IsEnum(MvdType)
+  document_mvd_availability: MvdType;
 
   @IsOptional()
-  @IsEnum(MvdProsecutionType)
-  document_mvd_prosecution?: MvdProsecutionType;
+  @IsArray()
+  document_mvd_prosecution: string[];
+
+  @IsOptional()
+  @IsEnum(PpoType)
+  ppo_group: PpoType;
 }

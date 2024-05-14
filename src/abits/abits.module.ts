@@ -11,8 +11,14 @@ import { AbitService } from './abits.service'
 import { AbitEntity } from './entity/abit.entity'
 import { CossackSocietyEntity } from './entity/cossackSociety.entity'
 import { NationalityEntity } from './entity/nationality.entity'
+import { PriorityRightEntity } from './entity/priorityRight.entity'
+import { QuotaEntity } from './entity/quota.entity'
 import { SpecialtyEntity } from './entity/specialties.entity'
 import { SubjectsEntity } from './entity/subjects.entity'
+import { PriorityRightController } from './priorityRight.controller'
+import { PriorityRightService } from './priorityRight.service'
+import { QuotaController } from './quota.controller'
+import { QuotaService } from './quota.service'
 import { SubjectController } from './subjects.controller'
 import { SubjectsService } from './subjects.service'
 
@@ -21,6 +27,8 @@ import { SubjectsService } from './subjects.service'
     TypeOrmModule.forFeature([
       AbitEntity,
       NationalityEntity,
+      QuotaEntity,
+      PriorityRightEntity,
       SpecialtyEntity,
       CossackSocietyEntity,
       SubjectsEntity,
@@ -31,6 +39,8 @@ import { SubjectsService } from './subjects.service'
   providers: [
     AbitService,
     AbitNationalityService,
+    QuotaService,
+    PriorityRightService,
     AbitSpecialtyService,
     CossackSocietyService,
     SubjectsService,
@@ -38,6 +48,8 @@ import { SubjectsService } from './subjects.service'
   controllers: [
     AbitsController,
     AbitNationalityController,
+    QuotaController,
+    PriorityRightController,
     AbitSpecialtyController,
     CossackSocietyController,
     SubjectController,

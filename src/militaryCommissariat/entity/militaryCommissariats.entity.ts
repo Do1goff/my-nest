@@ -20,17 +20,17 @@ export class MilitaryCommissariatsEntity {
   @Column()
   name: string;
 
-  @Column()
-  telephone: string;
+  @Column({ nullable: true })
+  telephone: string = '';
 
-  @Column()
-  director: string;
+  @Column({ nullable: true })
+  director: string = '';
 
-  @Column()
-  address: string;
+  @Column({ nullable: true })
+  address: string = '';
 
-  @Column()
-  email: string;
+  @Column({ nullable: true })
+  email: string = '';
 
   @OneToMany(() => AbitEntity, (abit) => abit.id)
   abit?: AbitEntity[];

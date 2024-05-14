@@ -1,40 +1,99 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
-import { EntranceTestService } from './entranceTest.service';
-import { CreateEntranceTestDto } from './dto/CreateEntranceTestDto.dto';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common'
+import { CreateEntranceTestDto } from './dto/CreateEntranceTestDto.dto'
+import { EntranceTestService } from './entranceTest.service'
 
 @Controller('entrance_test')
 export class EntranceTestController {
     constructor(private entranceTestService: EntranceTestService){}
 
+    // @Post()
+    // async create(@Body() data:CreateEntranceTestDto){
+    //     return this.entranceTestService.create(data)
+    // }
+
+    // @Get(':id')
+    // async get(@Param('id', ParseIntPipe) id: number) {
+    //   return await this.entranceTestService.find({
+    //     where: {
+    //       abitId: id,
+    //     },
+    //     take: 50,
+    //     relations: {
+    //       subject: true,
+    //     },
+    //   });
+    // }
+    // @Put(':id')
+    // async update(
+    //   @Param('id', ParseIntPipe) id: number,
+    //   @Body() updateData: CreateEntranceTestDto,
+    // ) {
+    //   return await this.entranceTestService.update(
+    //     {
+    //       abitSubjectId: id,
+    //     },
+    //     updateData,
+    //   );
+    // }
+
+
     @Post()
-    async create(@Body() data:CreateEntranceTestDto){
-        return this.entranceTestService.create(data)
-    }
+  async create(@Body() data: CreateEntranceTestDto) {
+    const mark = this.entranceTestService.create(data);
+    return await this.entranceTestService.findOne({
+      where: {
+        abitSubjectId: (await mark).abitSubjectId,
+      },
+      relations: {
+        subject: true,
+      },
+    });
+  }
 
-    @Get()
-    async get() {
-        return await this.entranceTestService.find({
-            take:50,
-            relations:{
-                abit: true,
-                subject:true
-            }
-        })
-    }
+  @Get(':id')
+  async get(@Param('id', ParseIntPipe) id: number) {
+    return await this.entranceTestService.find({
+      where: {
+        abitId: id,
+      },
+      take: 50,
+      relations: {
+        subject: true,
+      },
+    });
+  }
 
-    @Get(':id')
-    async getOne(@Param('id', ParseIntPipe) id:number){
-        return await this.entranceTestService.findOne({
-            where:{
-                abitId:id
-            }
-        })
-    }
-    @Put(':id')
-    async update(@Param('id', ParseIntPipe) id:number, @Body() updateData: CreateEntranceTestDto){
-        return await this.entranceTestService.update({
-            abitId: id
-        }, updateData)
-    }
+  @Get(':abitSubjectId')
+  async getOne(@Param('abitSubjectId', ParseIntPipe) abitSubjectId: number) {
+    return await this.entranceTestService.findOne({
+      where: {
+        abitSubjectId: abitSubjectId,
+      },
+      relations: {
+        subject: true,
+      },
+    });
+  }
+
+  @Put(':id')
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateData: CreateEntranceTestDto,
+  ) {
+    await this.entranceTestService.update(
+      {
+        abitSubjectId: id ,
+      },
+      updateData,
+    );
+    return await this.entranceTestService.findOne({
+      where: {
+        abitSubjectId: id,
+      },
+      relations: {
+        subject: true,
+      },
+    });
+  }
 }
  

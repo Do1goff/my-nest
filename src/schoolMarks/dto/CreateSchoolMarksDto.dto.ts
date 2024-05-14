@@ -1,12 +1,15 @@
-import { IsNumber } from "class-validator";
+import { IsNumber, IsOptional } from 'class-validator'
 
-export class CreateSchoolMarksDto{
-    @IsNumber()
-    abitId: number;
+export class CreateSchoolMarksDto {
+  @IsOptional()
+  @IsNumber()
+  abitId: number;
 
-    @IsNumber()
-    subjectId: number;
+  // @IsOptional()
+  // @IsNumber()
+  // subjectId: number;
 
-    @IsNumber()
-    mark: number;
+  @IsOptional()
+  @IsNumber()
+  mark: number;
 }

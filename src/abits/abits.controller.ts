@@ -19,6 +19,21 @@ export class AbitsController {
   async get() {
     const abits = await this.abitService.find({
       take: 50,
+      relations: {
+        nationality: true,
+        specialty_military_commissariat: true,
+        specialty_1: true,
+        specialty_2: true,
+        specialty_3: true,
+        specialty_admission: true,
+        cossack_society: true,
+        militaryCommissariat: true,
+        quota: true,
+        priorityRight: true,
+        personal_achievements: true,
+        admission_commission: true,
+        admission_examination_group: true,
+      },
     });
     return abits;
   }
@@ -29,26 +44,63 @@ export class AbitsController {
       where: {
         id: id,
       },
+      relations: {
+        nationality: true,
+        specialty_military_commissariat: true,
+        specialty_1: true,
+        specialty_2: true,
+        specialty_3: true,
+        specialty_admission: true,
+        cossack_society: true,
+        militaryCommissariat: true,
+        quota: true,
+        priorityRight: true,
+        personal_achievements: true,
+        admission_commission: true,
+        admission_examination_group: true,
+        addresses: true,
+      },
     });
     return abit;
   }
 
   @Post()
-  create(@Body() createAbitDto: CreateAbitDto) {
+  async create(@Body() createAbitDto: CreateAbitDto) {
     return this.abitService.create(createAbitDto);
   }
 
   @Put(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateData: CreateAbitDto,
-  ) {
+    @Body() updateData: CreateAbitDto, 
+  ) { 
     await this.abitService.update(
       {
         id: id,
       },
       updateData,
     );
+    return await this.abitService.findOne({
+      where: { 
+        id: id,
+      },
+      relations: {
+        nationality: true,
+        specialty_military_commissariat: true,
+        specialty_1: true,
+        specialty_2: true,
+        specialty_3: true,
+        specialty_admission: true,
+        cossack_society: true,
+        militaryCommissariat: true,
+        quota: true,
+        priorityRight: true,
+        personal_achievements: true,
+        admission_commission: true,
+        admission_examination_group: true,
+        addresses: true,
+      },
+    });
   }
 
   @Delete(':id')

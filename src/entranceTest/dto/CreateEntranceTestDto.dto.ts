@@ -1,12 +1,19 @@
-import { IsNumber } from "class-validator";
+import { IsDateString, IsNumber, IsOptional } from 'class-validator'
 
-export class CreateEntranceTestDto{
-    @IsNumber()
-    abitId: number;
+export class CreateEntranceTestDto {
+  @IsOptional()
+  @IsNumber()
+  abitId: number;
 
-    @IsNumber()
-    subjectId: number;
+  // @IsOptional()
+  // @IsNumber()
+  // subjectId: number;
 
-    @IsNumber()
-    mark: number;
+  @IsOptional()
+  @IsNumber()
+  mark: number;
+
+  @IsOptional()
+  @IsDateString()
+  date: Date;
 }

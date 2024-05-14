@@ -11,12 +11,18 @@ export class SubjectsEntity {
   @Column()
   name: string;
 
-  @OneToMany(() => EgeMarksEntity, (egeMarks) => egeMarks.subjectId)
+  @OneToMany(() => EgeMarksEntity, (egeMarks) => egeMarks.abitSubjectId)
   egeMarks?: EgeMarksEntity[];
 
-  @OneToMany(() => SchoolMarksEntity, (schoolMarks) => schoolMarks.abitId)
-  schoolMarks?: EgeMarksEntity[];
+  @OneToMany(
+    () => SchoolMarksEntity,
+    (schoolMarks) => schoolMarks.abitSubjectId,
+  )
+  schoolMarks?: SchoolMarksEntity[];
 
-  @OneToMany(() => EntranceTestEntity, (entranceTest) => entranceTest.abitId)
+  @OneToMany(
+    () => EntranceTestEntity,
+    (entranceTest) => entranceTest.abitSubjectId,
+  )
   entranceTest?: EntranceTestEntity[];
 }

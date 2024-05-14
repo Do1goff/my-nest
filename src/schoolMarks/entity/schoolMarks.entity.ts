@@ -10,8 +10,8 @@ export class SchoolMarksEntity {
   @Column()
   abitId: number;
 
-  @Column()
-  subjectId: number;
+  // @Column()
+  // subjectId: number;
 
   @Column()
   mark: number;
@@ -19,6 +19,6 @@ export class SchoolMarksEntity {
   @ManyToOne(() => AbitEntity, (abit) => abit.id)
   abit?: AbitEntity;
 
-  @ManyToOne(() => SubjectsEntity, (subject) => subject.id)
+  @ManyToOne(() => SubjectsEntity)
   subject?: SubjectsEntity;
 }

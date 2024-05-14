@@ -1,24 +1,25 @@
 /* eslint-disable prettier/prettier */
+import { AddressesEntity } from 'src/addresses/entity/addresses.entity'
 import { CommissionEntity } from 'src/commission/entity/commission.entity'
-import { EducationEntity } from 'src/education/entity/education.entity'
 import { EntranceTestEntity } from 'src/entranceTest/entity/entranceTest.entity'
 import { ExaminationGroupEntity } from 'src/examinationGroup/entity/examinationGroup.entity'
+import { FamilyEntity } from 'src/family/entity/family.entity'
 import { MilitaryCommissariatsEntity } from 'src/militaryCommissariat/entity/militaryCommissariats.entity'
 import { SchoolMarksEntity } from 'src/schoolMarks/entity/schoolMarks.entity'
 import { SportEntity } from 'src/sport/entity/sport.entity'
+import { TelephoneEntity } from 'src/telephone/entity/telephone.entity'
 import {
   Column,
-  CreateDateColumn,
   Entity,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
+  PrimaryGeneratedColumn
 } from 'typeorm'
 import { EgeMarksEntity } from '../../ege/entity/egeMarks.entity'
+import { PersonalAchievementsEntity } from '../../personalAchievements/entity/personalAchievements.entity'
 import { CossackSocietyEntity } from './cossackSociety.entity'
-import { ExemptionEntity } from './exemption.entity'
 import { NationalityEntity } from './nationality.entity'
-import { PersonalAchievements } from './personalAchievements.entity'
+import { PriorityRightEntity } from './priorityRight.entity'
 import { QuotaEntity } from './quota.entity'
 import { SpecialtyEntity } from './specialties.entity'
 
@@ -27,12 +28,32 @@ export enum GenderType {
   WOMEN = 'women',
 }
 
+export enum SCType {
+  CHECK = 'check',
+  PRESENT = 'present',
+  ABSENT = 'absent',
+}
+
+export enum FamilySocialStatusType {
+  CHECK = 'check',
+  MILITARY = 'military',
+  CIVIL_SERVANT = 'civil_servant',
+  TEACHER = 'teacher',
+  SERVICE = 'service',
+  TRADER = 'trader',
+  WORK = 'work',
+  SERVANT = 'servant',
+  SCIENCE = 'science',
+}
+
 export enum LdType {
   PRINT = 'print',
   ELECTRO = 'electro',
+  PRINT_AND_ELECTRO = 'print_and_electro'
 }
 
 export enum FamilyStatusType {
+  CHECK = 'check',
   MARRIED = 'married',
   SINGLE = 'single',
 }
@@ -54,11 +75,24 @@ export enum MilitaryServiceCategory {
 }
 
 export enum SecretAccessType {
+  CHECK = 'check',
   GROUP_1 = 'group_1',
   GROUP_2 = 'group_2',
-  GROUP_3 = 'group_3',
-  IN_PROCESS = 'IN_PROCESS',
+  GROUP_1_IN_PROCESS = 'group_1_in_progress',
+  GROUP_2_IN_PROCESS = 'group_2_in_progress',
   NONE = 'none',
+}
+
+export enum MedType {
+  CHECK = 'check',
+  TRUE = 'true',
+  FALSE = 'false',
+}
+
+export enum MvdType {
+  CHECK = 'check',
+  TRUE = 'true',
+  FALSE = 'false',
 }
 
 export enum PpoType {
@@ -100,10 +134,34 @@ export type PassportData = {
   department_code: string;
 };
 
+export type EducationData = {
+  category: string;
+  date_end: Date;
+  institute: string;
+  address: string;
+  document_education: string
+};
+
+export type UncanceledEducationData = {
+  category: string;
+  date_end: Date;
+  institute: string;
+  date_admission: Date
+  period_study: string
+  course: number
+  semesters_end: number
+};
+
 export type ExpulsionData = {
   reason: string;
   date: Date;
 };
+
+export type qualificationExamData = {
+  mark: number;
+  date: Date;
+};
+
 
 @Entity({ name: 'abits' })
 export class AbitEntity {
@@ -122,8 +180,8 @@ export class AbitEntity {
   @Column()
   birthday: Date; 
 
-  @Column({ nullable: true })
-  note?: string;
+  @Column({default: ''})
+  note: string = '';
 
   @ManyToOne(() => NationalityEntity)
   nationality?: NationalityEntity
@@ -131,63 +189,54 @@ export class AbitEntity {
   @Column({ type: 'enum', enum: GenderType, default: GenderType.MEN })
   gender?: GenderType = GenderType.MEN;
 
-  @Column({ nullable: true })
-  telephone?: string;
+  @OneToMany(() => TelephoneEntity, (telephone) => telephone.abitId)
+  telephone?: TelephoneEntity[];
 
-  @Column({ nullable: true })
-  telephone2?: string;
-
+  //////
   @Column({ nullable: true })
   residence?: string;
 
-  @Column({ nullable: true })
-  secondCitizenship?: string;
+  @Column({ type: 'enum', enum: SCType, default: SCType.CHECK })
+  secondCitizenship?: SCType = SCType.CHECK;
 
   @Column()
   personal_file_number: string = '';
 
   @Column()
-  personal_file_reg: string = '';
+  personal_file_reg: string = '';  
 
   @Column({ nullable: true })
-  personal_file_date_reg: Date;
+  personal_file_date_reg: Date; 
 
   @Column({ type: 'enum', enum: LdType, default: LdType.PRINT })
   personal_file_existence?: LdType = LdType.PRINT;
 
+// /?
   @Column()
   personal_file_arm: number = 0;
 
   @Column({
     type: 'enum',
     enum: FamilyStatusType,
-    default: FamilyStatusType.SINGLE,
+    default: FamilyStatusType.CHECK
   })
-  family_status?: FamilyStatusType = FamilyStatusType.SINGLE;
+  family_status?: FamilyStatusType = FamilyStatusType.CHECK;
 
+  /////
   @Column()
   family_address: string = '';
 
-  @Column()
-  family_social_status: string = '';
+  @Column({ type: 'enum', enum: FamilySocialStatusType, default: FamilySocialStatusType.CHECK })
+  family_social_status: FamilySocialStatusType = FamilySocialStatusType.CHECK;
 
   @Column({ nullable: true })
   family_childrens: number;
 
   @Column({ nullable: true })
   abit_childrens: number;
-
-  @Column('simple-json', { nullable: true })
-  mother: PersonalData;
-
-  @Column({ default: false })
-  mother_fail: boolean = false;
-
-  @Column('simple-json', { nullable: true })
-  father: PersonalData;
-
-  @Column({ default: false })
-  father_fail: boolean;
+  
+  @OneToMany(() => FamilyEntity, (family) => family.abitId)
+  family?: FamilyEntity[];
 
   @Column()
   personal_number: string = '';
@@ -202,13 +251,13 @@ export class AbitEntity {
   militaryCommissariat?: MilitaryCommissariatsEntity;
 
   @ManyToOne(() => QuotaEntity)
-  quota?: QuotaEntity;
+  quota?: QuotaEntity; 
 
-  @ManyToOne(() => ExemptionEntity)
-  exemption?: ExemptionEntity; 
+  @ManyToOne(() => PriorityRightEntity)
+  priorityRight?: PriorityRightEntity; 
 
-  @ManyToOne(() => PersonalAchievements)
-  personal_achievements?: PersonalAchievements;
+  @ManyToOne(() => PersonalAchievementsEntity)
+  personal_achievements?: PersonalAchievementsEntity;
 
   @Column({ nullable: true })
   admission_date: Date;
@@ -222,8 +271,8 @@ export class AbitEntity {
   @Column({ type: 'simple-array', nullable: true })
   admission_source_information?: string[];
 
-  @Column({ nullable: true })
-  admission_note?: string;
+  @Column({default:''})
+  admission_note: string = '';
 
   @ManyToOne(() => SpecialtyEntity)
   specialty_military_commissariat?: SpecialtyEntity;
@@ -246,9 +295,9 @@ export class AbitEntity {
   @Column({
     type: 'enum',
     enum: SecretAccessType,
-    default: SecretAccessType.NONE,
+    default: SecretAccessType.CHECK
   })
-  document_secrets_access: SecretAccessType = SecretAccessType.NONE;
+  document_secrets_access: SecretAccessType = SecretAccessType.CHECK;
 
   @Column()
   document_snils: string = '';
@@ -256,8 +305,8 @@ export class AbitEntity {
   @Column()
   document_inn: string = '';
 
-  @Column({ default: false })
-  document_medical_certificate: boolean = false;
+  @Column({ type: 'enum', enum: MedType, default: MedType.CHECK })
+  document_medical_certificate: MedType = MedType.CHECK;
 
   @Column({ type: 'enum', enum: PpoType, nullable: true })
   document_ppo_group: PpoType;
@@ -274,17 +323,20 @@ export class AbitEntity {
   @Column({ default: false })
   document_education_presence: boolean;
 
-  @Column({ default: false })
-  document_mvd_availability?: boolean = false;
-
-  @Column({ type: 'enum', enum: MvdProsecutionType, nullable: true })
-  document_mvd_prosecution?: MvdProsecutionType;
+  @Column({ type: 'enum', enum: MvdType, default: MvdType.CHECK })
+  document_mvd_availability: MvdType = MvdType.CHECK;
+  
+  @Column({ type: 'simple-array', nullable: true })
+  document_mvd_prosecution?: string[];
 
   @ManyToOne(() => CossackSocietyEntity)
   cossack_society?: CossackSocietyEntity;
 
-  @OneToMany(() => EducationEntity, (education) => education.abitId)
-  education?: EducationEntity[];
+  @Column('simple-json', {nullable:true})
+  education?: EducationData
+
+  @Column('simple-json', {nullable:true})
+  uncanceledEducation?: UncanceledEducationData
 
   @OneToMany(() => EgeMarksEntity, (egeMarks) => egeMarks.abitId)
   egeMarks?: EgeMarksEntity[];
@@ -298,6 +350,9 @@ export class AbitEntity {
   @OneToMany(() => SportEntity, (sport) => sport.abitId)
   sport?: SportEntity[];
 
-  @CreateDateColumn()
-  createAt: Date;
+  @Column('simple-json',{ nullable: true })
+  qualificationExam?: qualificationExamData;
+
+  @ManyToOne(() => AddressesEntity)
+  addresses?: AddressesEntity;
 }

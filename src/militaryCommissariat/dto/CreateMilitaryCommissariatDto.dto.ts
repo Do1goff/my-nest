@@ -1,22 +1,26 @@
-import { IsEnum, IsString } from "class-validator"
-import { DistrictType } from "../entity/militaryCommissariats.entity"
+import { IsEnum, IsOptional, IsString } from 'class-validator'
+import { DistrictType } from '../entity/militaryCommissariats.entity'
 
-export class CreateMilitaryCommissariatDto{
-    @IsEnum(DistrictType)
-    district:DistrictType
+export class CreateMilitaryCommissariatDto {
+  @IsEnum(DistrictType)
+  district: DistrictType;
 
-    @IsString()
-    name:string
+  @IsString()
+  name: string;
 
-    @IsString()
-    telephone:string
+  @IsOptional()
+  @IsString()
+  telephone: string;
 
-    @IsString()
-    director:string
+  @IsOptional()
+  @IsString()
+  director: string;
 
-    @IsString()
-    address:string
+  @IsString()
+  @IsOptional()
+  address: string;
 
-    @IsString()
-    email:string
+  @IsOptional()
+  @IsString()
+  email: string;
 }
