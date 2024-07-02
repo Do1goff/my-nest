@@ -4,6 +4,7 @@ import { CommissionEntity } from 'src/commission/entity/commission.entity'
 import { EntranceTestEntity } from 'src/entranceTest/entity/entranceTest.entity'
 import { ExaminationGroupEntity } from 'src/examinationGroup/entity/examinationGroup.entity'
 import { FamilyEntity } from 'src/family/entity/family.entity'
+import { InstitutesEntity } from 'src/instituts/entity/institutes.entity'
 import { MilitaryCommissariatsEntity } from 'src/militaryCommissariat/entity/militaryCommissariats.entity'
 import { SchoolMarksEntity } from 'src/schoolMarks/entity/schoolMarks.entity'
 import { SportEntity } from 'src/sport/entity/sport.entity'
@@ -145,7 +146,7 @@ export type EducationData = {
 export type UncanceledEducationData = {
   category: string;
   date_end: Date;
-  institute: string;
+  institute: InstitutesEntity;
   date_admission: Date
   period_study: string
   course: number

@@ -1,11 +1,11 @@
 import {
-    Body,
-    Controller,
-    Get,
-    Param,
-    ParseIntPipe,
-    Post,
-    Put,
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
 } from '@nestjs/common'
 import { CreateMilitaryCommissariatDto } from './dto/CreateMilitaryCommissariatDto.dto'
 import { MilitaryCommissariatsEntity } from './entity/militaryCommissariats.entity'
@@ -27,7 +27,6 @@ export class MilitaryCommissariatController {
   @Get()
   async get() {
     return await this.militaryCommissariatService.find({
-      take: 50,
     });
 
   }
