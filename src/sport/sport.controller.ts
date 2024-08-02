@@ -1,11 +1,11 @@
 import {
-    Body,
-    Controller,
-    Get,
-    Param,
-    ParseIntPipe,
-    Post,
-    Put,
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
 } from '@nestjs/common'
 import { CreateSportDto } from './dto/CreateSportDto.dto'
 import { SportService } from './sport.service'
@@ -63,7 +63,6 @@ export class SportController {
       where: {
         abitId: id,
       },
-      take: 50,
       relations: {
         exercises: true,
       },

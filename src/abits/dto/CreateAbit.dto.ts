@@ -10,20 +10,19 @@ import {
   IsString
 } from 'class-validator'
 import {
-  EducationData,
+  AdmissionSourceInfoType,
   ExpulsionData,
-  FamilySocialStatusType,
   FamilyStatusType,
   GenderType,
   LdType,
   MedType,
-  MilitaryServiceData,
   MvdType,
   PassportData,
   PpoType,
+  RecruitmentType,
   SCType,
   SecretAccessType,
-  UncanceledEducationData
+  SignType
 } from '../entity/abit.entity'
 
 export class CreateAbitDto {
@@ -54,9 +53,9 @@ export class CreateAbitDto {
   @IsEnum(GenderType)
   gender: GenderType;
 
-  @IsOptional()
-  @IsString()
-  residence: string;
+  // @IsOptional()
+  // @IsString()
+  // residence: string;
 
   @IsOptional()
   @IsEnum(SCType)
@@ -86,13 +85,9 @@ export class CreateAbitDto {
   @IsEnum(FamilyStatusType)
   family_status: FamilyStatusType;
 
-  @IsOptional()
-  @IsString()
-  family_address: string;
-
-  @IsOptional()
-  @IsEnum(FamilySocialStatusType)
-  family_social_status: FamilySocialStatusType;
+  // @IsOptional()
+  // @IsString()
+  // family_address: string;
 
   @IsOptional()
   @IsNumber()
@@ -108,7 +103,7 @@ export class CreateAbitDto {
   
   @IsOptional()
   @IsArray()
-  admission_source_information: string[];
+  admission_source_information: AdmissionSourceInfoType[];
 
   @IsOptional()
   @IsString()
@@ -126,9 +121,9 @@ export class CreateAbitDto {
   @IsBoolean()
   personal_number_giving: boolean;
   
-  @IsOptional()
-  @IsJSON()
-  militaryService: MilitaryServiceData;
+  // @IsOptional()
+  // @IsJSON()
+  // militaryService: MilitaryServiceData;
   
   @IsOptional()
   @IsEnum(SecretAccessType)
@@ -154,13 +149,13 @@ export class CreateAbitDto {
   @IsJSON()
   document_passport: PassportData;
 
-  @IsOptional()
-  @IsJSON()
-  education: EducationData;
+  // @IsOptional()
+  // @IsJSON()
+  // education: EducationData;
 
-  @IsOptional()
-  @IsJSON()
-  uncanceledEducation: UncanceledEducationData;
+  // @IsOptional()
+  // @IsJSON()
+  // uncanceledEducation: UncanceledEducationData;
 
   @IsOptional()
   @IsBoolean()
@@ -185,4 +180,24 @@ export class CreateAbitDto {
   @IsOptional()
   @IsEnum(PpoType)
   ppo_group: PpoType;
+
+  @IsOptional()
+  @IsBoolean()
+  priorityRight_test: boolean
+
+  @IsOptional()
+  @IsBoolean()
+  separateQuota_test: boolean
+
+  @IsOptional()
+  @IsBoolean()
+  establishedQuota_test: boolean
+
+  @IsOptional()
+  @IsEnum(RecruitmentType)
+  recruitment: RecruitmentType
+
+  @IsOptional()
+  @IsEnum(SignType)
+  sign: SignType
 }

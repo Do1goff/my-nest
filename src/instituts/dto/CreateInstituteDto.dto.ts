@@ -4,7 +4,7 @@ export class CreateInstituteDto {
   @IsString()
   name: string;
   
-  @IsString()
-  address: string;
+  // @IsString()
+  // address: string;
 }
  

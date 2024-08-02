@@ -1,5 +1,7 @@
-import { AbitEntity } from 'src/abits/entity/abit.entity'
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { EducationEntity } from 'src/education/entity/education.entity'
+import { UncanceledEducationEntity } from 'src/education/entity/uncanceledEducation.entity'
+import { LocationsEntity } from 'src/locations/entity/locations.entity'
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity({ name: 'institutes' })
 export class InstitutesEntity {
@@ -8,10 +10,15 @@ export class InstitutesEntity {
 
   @Column()
   name: string;
+ 
+  // @Column()
+  // address: string;
+  @ManyToOne(() => LocationsEntity, (location) => location.id)
+  address?: LocationsEntity;
 
-  @Column()
-  address: string;
-
-  @OneToMany(() => AbitEntity, (abit) => abit.id)
-  abit?: AbitEntity;
+  @OneToMany(() => EducationEntity, (education) => education.id)
+  education?: EducationEntity;
+  
+  @OneToMany(() => UncanceledEducationEntity, (uncanceledEducation) => uncanceledEducation.id)
+  uncanceledEducation?: UncanceledEducationEntity;
 }

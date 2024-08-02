@@ -14,9 +14,6 @@ export class PersonalAchievementsEntity {
   achievementId: number;
 
   @Column({ default: false })
-  value: boolean;
-
-  @Column({ default: false })
   test: boolean;
 
   @ManyToOne(() => AbitEntity, (abit) => abit.id)

@@ -25,7 +25,6 @@ export class TelephoneController {
       where: {
         abitId: id,
       },
-      take: 50,
     });
   }
   // @Get(':id')

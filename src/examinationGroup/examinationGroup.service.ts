@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import {
-    FindManyOptions,
-    FindOneOptions,
-    FindOptionsWhere,
-    Repository,
+  FindManyOptions,
+  FindOneOptions,
+  FindOptionsWhere,
+  Repository,
 } from 'typeorm'
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity'
 import { CreateExaminationGroupDto } from './dto/CreateExaminationGroupDto.dto'
@@ -12,12 +12,12 @@ import { ExaminationGroupEntity } from './entity/examinationGroup.entity'
 
 @Injectable()
 export class ExaminationGroupService {
-  constructor(
+  constructor( 
     @InjectRepository(ExaminationGroupEntity)
     private examinationGroupRepository: Repository<ExaminationGroupEntity>,
   ) {}
 
-  async create(
+  async create( 
     data: CreateExaminationGroupDto,
   ): Promise<ExaminationGroupEntity> {
     const examinationGroup = this.examinationGroupRepository.create(data);

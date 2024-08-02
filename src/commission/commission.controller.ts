@@ -22,7 +22,6 @@ export class CommissionController {
   @Get()
   async get() {
     return await this.commissionService.find({
-      take: 50,
     });
   }
   @Get(':id')

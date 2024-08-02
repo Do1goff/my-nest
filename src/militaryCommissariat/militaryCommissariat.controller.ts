@@ -27,6 +27,9 @@ export class MilitaryCommissariatController {
   @Get()
   async get() {
     return await this.militaryCommissariatService.find({
+      relations:{
+        militaryDistrict:true
+      }
     });
 
   }
@@ -36,6 +39,9 @@ export class MilitaryCommissariatController {
       where: {
         id: id,
       },
+      relations:{
+        militaryDistrict:true
+      }
     });
   }
   @Put(':id')

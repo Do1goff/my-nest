@@ -1,14 +1,14 @@
 import { Controller, Get } from '@nestjs/common'
-import { AbitNationalityService } from './abit-nationality.service'
+import { FamilySocialStatusService } from './familySocialStatus.service'
 
-@Controller('nationality')
-export class AbitNationalityController {
-  constructor(private abitNationalityService: AbitNationalityService) {}
+@Controller('family_social_status')
+export class FamilySocialStatusController {
+  constructor(private familySocialStatusService: FamilySocialStatusService) {}
 
   @Get()
   async get() {
-    const nationality = await this.abitNationalityService.find({});
-    return nationality;
+    const socialStatus = await this.familySocialStatusService.find({});
+    return socialStatus;
   }
 
   // @Get(':id')

@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { FindManyOptions, Repository } from 'typeorm'
-import { QuotaEntity } from './entity/quota.entity'
+import { FamilySocialStatusEntity } from './entity/familySocialStatus.entity'
 
 @Injectable()
-export class QuotaService {
+export class FamilySocialStatusService {
   constructor(
-    @InjectRepository(QuotaEntity)
-    private quotaRepository: Repository<QuotaEntity>,
+    @InjectRepository(FamilySocialStatusEntity)
+    private familySocialStatusRepository: Repository<FamilySocialStatusEntity>,
   ) {}
 
-  find(options?: FindManyOptions<QuotaEntity>): Promise<QuotaEntity[]> {
-    return this.quotaRepository.find(options);
+  find(options?: FindManyOptions<FamilySocialStatusEntity>): Promise<FamilySocialStatusEntity[]> {
+    return this.familySocialStatusRepository.find(options);
   }
 
   // findOne(options: FindOneOptions<AbitEntity>): Promise<AbitEntity>{

@@ -9,6 +9,15 @@ export class SpecialtyEntity {
   @Column()
   name: string;
 
+  @Column()
+  name_civil: string;
+
+  @Column()
+  abbreviation: string;
+
+  @Column()
+  faculty: string;
+
   @OneToMany(() => AbitEntity, (abit) => abit.id)
   abit?: AbitEntity[];
 }

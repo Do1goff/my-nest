@@ -1,8 +1,8 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { AbitEntity } from './abit.entity'
 
-@Entity({ name: 'quota' })
-export class QuotaEntity {
+@Entity({ name: 'separateQuota' })
+export class SeparateQuotaEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

@@ -8,6 +8,12 @@ export class ExaminationGroupEntity {
 
   @Column()
   name: string;
+ 
+  @Column()
+  abbreviation: string;
+
+  @Column()
+  number: number;
 
   @OneToMany(() => AbitEntity, (abit) => abit.id)
   abit?: AbitEntity;

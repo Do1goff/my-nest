@@ -22,7 +22,9 @@ export class InstitutesController {
   @Get()
   async get() {
     return await this.institutesService.find({
-      take: 50,
+      relations: {
+        address:true,
+      }, 
     });
   }
   @Get(':id')
@@ -30,6 +32,9 @@ export class InstitutesController {
     return await this.institutesService.findOne({
       where: {
         id: id,
+      },
+      relations: {
+        address:true,
       },
     });
   }

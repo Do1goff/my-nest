@@ -1,36 +1,47 @@
 import { AbitEntity } from 'src/abits/entity/abit.entity'
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
-
-export enum DistrictType {
-  CENTRAL = 'central',
-  WEST = 'west',
-  EAST = 'east',
-  SOUTH = 'south',
-  NORTH = 'north',
-}
+import { MilitaryDistrictsEntity } from 'src/locations/entity/militaryDistricts.entity'
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity({ name: 'military_commissariats' })
 export class MilitaryCommissariatsEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'enum', enum: DistrictType })
-  district: DistrictType;
+  @Column()
+  level: number;
+
+  @Column()
+  type: string;
+
+  @Column()
+  municipal: boolean;
+
+  @Column()
+  category: number;
 
   @Column()
   name: string;
 
-  @Column({ nullable: true })
-  telephone: string = '';
+  @Column()
+  name_official: string;
+
+  @Column()
+  region: string;
+ 
+  @ManyToOne(() => MilitaryDistrictsEntity, (militaryDistrict) => militaryDistrict.id)
+  militaryDistrict?: MilitaryDistrictsEntity;
 
   @Column({ nullable: true })
-  director: string = '';
+  telephone: string;
 
   @Column({ nullable: true })
-  address: string = '';
+  director: string;
 
   @Column({ nullable: true })
-  email: string = '';
+  address: string;
+
+  @Column({ nullable: true })
+  email: string;
 
   @OneToMany(() => AbitEntity, (abit) => abit.id)
   abit?: AbitEntity[];

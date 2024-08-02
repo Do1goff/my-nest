@@ -22,7 +22,6 @@ export class AddressesController {
   @Get()
   async get() {
     return await this.addressesService.find({
-      take: 50,
     });
   }
   @Get(':id')

@@ -10,9 +10,5 @@ export class CreatePersonalAchievementsDto {
 
   @IsBoolean()
   @IsOptional()
-  value: boolean;
-
-  @IsBoolean()
-  @IsOptional()
   test: boolean;
 }

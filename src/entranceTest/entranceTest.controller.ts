@@ -46,6 +46,7 @@ export class EntranceTestController {
       },
       relations: {
         subject: true,
+        form:true
       },
     });
   }
@@ -56,9 +57,9 @@ export class EntranceTestController {
       where: {
         abitId: id,
       },
-      take: 50,
       relations: {
         subject: true,
+        form:true
       },
     });
   }

@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common'
-import { CossackSocietyService } from './abit-cossackSociety.service'
+import { CossackSocietyService } from './cossackSociety.service'
 
 @Controller('cossack_society')
 export class CossackSocietyController {

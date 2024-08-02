@@ -9,6 +9,9 @@ export class CommissionEntity {
   @Column()
   name: string;
 
+  @Column()
+  region:string = '';
+
   @OneToMany(() => AbitEntity, (abit) => abit.id)
   abit?: AbitEntity;
 }

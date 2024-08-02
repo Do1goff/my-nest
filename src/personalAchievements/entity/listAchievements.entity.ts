@@ -9,6 +9,9 @@ export class ListAchievementsEntity {
   @Column()
   name: string;
 
+  @Column({ default: 0 })
+  value: number = 0;
+
   @OneToMany(
     () => PersonalAchievementsEntity,
     (personalAchievements) => personalAchievements.abitId,

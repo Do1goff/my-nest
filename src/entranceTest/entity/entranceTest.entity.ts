@@ -1,6 +1,7 @@
 import { AbitEntity } from 'src/abits/entity/abit.entity'
 import { SubjectsEntity } from 'src/abits/entity/subjects.entity'
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { FormEntranceTestEntity } from './formEntranceTest.entity'
 
 @Entity({ name: 'entrance_test' })
 export class EntranceTestEntity {
@@ -24,4 +25,8 @@ export class EntranceTestEntity {
 
   @ManyToOne(() => SubjectsEntity, (subject) => subject.id)
   subject?: SubjectsEntity;
+
+  @ManyToOne(() => FormEntranceTestEntity, (form) => form.id)
+  form?: FormEntranceTestEntity;
 }
+

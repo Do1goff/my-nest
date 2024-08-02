@@ -33,7 +33,6 @@ export class SchoolMarksController {
       where: {
         abitId: id,
       },
-      take: 50,
       relations: {
         subject: true,
       },

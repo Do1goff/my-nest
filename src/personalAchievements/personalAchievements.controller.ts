@@ -22,7 +22,6 @@ export class PersonalAchievementsController {
       where: {
         abitId: id,
       },
-      take: 50,
       relations: {
         achievement: true,
       },

@@ -1,14 +1,16 @@
 import { Controller, Get } from '@nestjs/common'
-import { QuotaService } from './quota.service'
+import { CategoryUncanceledEducationService } from './categoryUncanceledEducation.service'
 
-@Controller('quota')
-export class QuotaController {
-  constructor(private quotaService: QuotaService) {}
+@Controller('categoryUncanceledEducation')
+export class CategoryUncanceledEducationController {
+  constructor(
+    private categoryUncanceledEducationService: CategoryUncanceledEducationService,
+  ) {}
 
   @Get()
   async get() {
-    const nationality = await this.quotaService.find({});
-    return nationality;
+    const category = await this.categoryUncanceledEducationService.find({});
+    return category;
   }
 
   // @Get(':id')

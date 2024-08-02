@@ -25,7 +25,6 @@ export class FamilyController {
       where: {
         abitId: id,
       },
-      take: 50,
     });
   }
   // @Get(':id')

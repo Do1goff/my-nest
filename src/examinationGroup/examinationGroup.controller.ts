@@ -1,11 +1,11 @@
 import {
-    Body,
-    Controller,
-    Get,
-    Param,
-    ParseIntPipe,
-    Post,
-    Put,
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
 } from '@nestjs/common'
 import { CreateExaminationGroupDto } from './dto/CreateExaminationGroupDto.dto'
 import { ExaminationGroupEntity } from './entity/examinationGroup.entity'
@@ -25,7 +25,6 @@ export class ExaminationGroupController {
   @Get()
   async get() {
     return await this.examinationGroupService.find({
-      take: 50,
     });
   }
   @Get(':id')

@@ -63,7 +63,6 @@ export class EgeMarksController {
       where: {
         abitId: id,
       },
-      take: 50,
       relations: {
         subject: true,
       },

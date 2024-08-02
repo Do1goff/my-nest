@@ -47,7 +47,7 @@ export class AbitService {
     return this.abitRepository.update(criteria, partialEntity);
   }
 
-  delete(criteria: FindOptionsWhere<AbitEntity>) {
-    return this.abitRepository.delete(criteria);
-  }
+  // delete(criteria: FindOptionsWhere<AbitEntity>) {
+  //   return this.abitRepository.delete(criteria);
+  // }
 }
