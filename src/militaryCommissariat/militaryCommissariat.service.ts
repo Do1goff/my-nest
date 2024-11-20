@@ -25,11 +25,6 @@ export class MilitaryCommissariatService {
     return this.militaryCommissariatRepository.save(militaryCommissariat);
   }
 
-  // find(
-  //   options: FindManyOptions<MilitaryCommissariatsEntity>,
-  // ): Promise<MilitaryCommissariatsEntity[]> {
-  //   return this.militaryCommissariatRepository.find(options);
-  // }
   find(
     options?: FindManyOptions<MilitaryCommissariatsEntity>,
   ): Promise<MilitaryCommissariatsEntity[]> {

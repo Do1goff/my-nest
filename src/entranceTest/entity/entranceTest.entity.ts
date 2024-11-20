@@ -11,9 +11,6 @@ export class EntranceTestEntity {
   @Column()
   abitId: number;
 
-  // @Column()
-  // subjectId: number;
-
   @Column()
   mark: number;
 
@@ -23,7 +20,7 @@ export class EntranceTestEntity {
   @ManyToOne(() => AbitEntity, (abit) => abit.id)
   abit?: AbitEntity;
 
-  @ManyToOne(() => SubjectsEntity, (subject) => subject.id)
+  @ManyToOne(() => SubjectsEntity, (subject) => subject.entranceTest)
   subject?: SubjectsEntity;
 
   @ManyToOne(() => FormEntranceTestEntity, (form) => form.id)

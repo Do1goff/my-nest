@@ -13,9 +13,13 @@ export class SportEntity {
   @Column()
   score: number;
 
-  @ManyToOne(() => AbitEntity, (abit) => abit.id)
+  @Column()
+  result: string;
+
+  @ManyToOne(() => AbitEntity, (abit) => abit.sport)
   abit?: AbitEntity;
 
-  @ManyToOne(() => ExercisesEntity)
+  @ManyToOne(() => ExercisesEntity, (exercise) => exercise.sport)
   exercises?: ExercisesEntity;
+ 
 }

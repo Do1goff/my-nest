@@ -17,22 +17,6 @@ export class EntranceTestService {
     private entranceTestRepository: Repository<EntranceTestEntity>,
   ) {}
 
-  // async create(data: CreateEntranceTestDto): Promise<EntranceTestEntity> {
-  //     const entranceTest = this.entranceTestRepository.create(data)
-  //     return this.entranceTestRepository.save(entranceTest)
-  // }
-
-  // find(options?: FindManyOptions<EntranceTestEntity>): Promise<EntranceTestEntity[]> {
-  //     return this.entranceTestRepository.find(options)
-  // }
-  // findOne(options: FindOneOptions<EntranceTestEntity>): Promise<EntranceTestEntity>{
-  //     return this.entranceTestRepository.findOne(options)
-  // }
-
-  // update(criteria: FindOptionsWhere<EntranceTestEntity>, partialEntity: QueryDeepPartialEntity<EntranceTestEntity>){
-  //     return this.entranceTestRepository.update(criteria, partialEntity)
-  // }
-
   async create(data: CreateEntranceTestDto): Promise<EntranceTestEntity> {
     const egeMark = this.entranceTestRepository.create(data);
     return this.entranceTestRepository.save(egeMark);

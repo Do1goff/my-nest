@@ -19,6 +19,7 @@ export class TelephoneController {
   async create(@Body() data: CreateTelephoneDto): Promise<TelephoneEntity> {
     return this.telephoneService.create(data);
   }
+  
   @Get(':id')
   async get(@Param('id', ParseIntPipe) id: number) {
     return await this.telephoneService.find({
@@ -27,28 +28,7 @@ export class TelephoneController {
       },
     });
   }
-  // @Get(':id')
-  // async get(@Param('id', ParseIntPipe) id: number) {
-  //   return await this.telephoneService.findOne({
-  //     where: {
-  //       abitId: id,
-  //     },
-  //   });
-  // }
-  // @Get()
-  // async get() {
-  //   return await this.telephoneService.find({
-  //     take: 50,
-  //   });
-  // }
-  // @Get(':id')
-  // async getOne(@Param('id', ParseIntPipe) id: number) {
-  //   return await this.telephoneService.findOne({
-  //     where: {
-  //       id: id,
-  //     },
-  //   }); 
-  // }
+
   @Put(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,

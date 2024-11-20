@@ -1,15 +1,16 @@
-/* eslint-disable prettier/prettier */
-import { AddressesEntity } from 'src/addresses/entity/addresses.entity'
 import { CommissionEntity } from 'src/commission/entity/commission.entity'
-import { EducationEntity } from 'src/education/entity/education.entity'
-import { UncanceledEducationEntity } from 'src/education/entity/uncanceledEducation.entity'
+import { CategoryEducationEntity } from 'src/education/entity/categoryEducation.entity'
+import { CategoryUncanceledEducationEntity } from 'src/education/entity/categoryUncanceledEducation.entity'
+import { InstitutesEntity } from 'src/education/entity/institutes.entity'
 import { EntranceTestEntity } from 'src/entranceTest/entity/entranceTest.entity'
 import { ExaminationGroupEntity } from 'src/examinationGroup/entity/examinationGroup.entity'
 import { FamilyEntity } from 'src/family/entity/family.entity'
 import { LocationsEntity } from 'src/locations/entity/locations.entity'
 import { MilitaryCommissariatsEntity } from 'src/militaryCommissariat/entity/militaryCommissariats.entity'
-import { MilitaryServiceEntity } from 'src/militaryService/entity/militaryService.entity'
-import { PassportEntity } from 'src/passport/entity/passport.entity'
+import { MilitaryPlacesEntity } from 'src/militaryService/entity/militaryPlaces.entity'
+import { MilitaryRanksEntity } from 'src/militaryService/entity/militaryRanks.entity'
+import { MilitarySVOEntity } from 'src/militaryService/entity/militarySVO.entity'
+import { MilitaryUnitsEntity } from 'src/militaryService/entity/militaryUnits.entity'
 import { PassportIssuedByEntity } from 'src/passport/entity/passportIssuedBy.entity'
 import { ReasonsEntity } from 'src/reasonExpulsion/entity/reasons.entity'
 import { SchoolMarksEntity } from 'src/schoolMarks/entity/schoolMarks.entity'
@@ -17,11 +18,10 @@ import { SportEntity } from 'src/sport/entity/sport.entity'
 import { TelephoneEntity } from 'src/telephone/entity/telephone.entity'
 import {
   Column,
+  CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
   OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn
 } from 'typeorm'
 import { EgeMarksEntity } from '../../ege/entity/egeMarks.entity'
@@ -36,107 +36,90 @@ import { SeparateQuotaEntity } from './separateQuota.entity'
 import { SpecialtyEntity } from './specialties.entity'
 
 export enum GenderType {
-  MEN = 'men',
-  WOMEN = 'women',
+  MEN = 'Мужской',
+  WOMEN = 'Женский',
 }
 
 export enum SCType {
-  EMPTY = 'empty',
-  CHECK = 'check',
-  PRESENT = 'present',
-  ABSENT = 'absent',
+  CHECK = 'Проверить',
+  PRESENT = 'Имеется',
+  ABSENT = 'Отсутствует',
 }
 
-
 export enum LdType {
-  ABSENT = 'absent',
-  PRINT = 'print',
-  ELECTRO = 'electro',
-  ELECTRO_PRINT_AND = 'electro_print_and'
+  ABSENT = 'Отсутствует',
+  PRINT = 'Бумажное',
+  ELECTRO = 'Электронное',
 }
 
 export enum FamilyStatusType {
-  MARRIED = 'married',
-  SINGLE = 'single',
-  DIVORCED = 'divorced',
-  WIDOWER = 'widower'
+  MARRIED = 'Женат',
+  SINGLE = 'Холост',
+  DIVORCED = 'Разведен',
+  WIDOWER = 'Вдовец'
 }
 
 export enum AdmissionSourceInfoType {
-  FAMILY = 'family',
-  FRIENDS = 'friends',
-  EDUCATION = 'education',
-  MILITARY_COMMISSARIAT = 'military_commissariat',
-  WEBSITE = 'website',
-  VK_GROUP = 'vk_group',
-  TELEGRAM = 'telegram',
-  ACADEMY = 'academy',
+  FAMILY = 'Родственники',
+  FRIENDS = 'Друзья/знакомые',
+  EDUCATION = 'Место учёбы',
+  MILITARY_COMMISSARIAT = 'Военкомат',
+  WEBSITE = 'Сайт МО',
+  VK_GROUP = 'Группа ВК',
+  TELEGRAM = 'Телеграм-канал',
+  ACADEMY = 'Обращение в академию',
 }
 
-
 export enum SecretAccessType {
-  CHECK = 'check',
-  GROUP_1 = 'group_1',
-  GROUP_2 = 'group_2',
-  GROUP_1_IN_PROCESS = 'group_1_in_process',
-  GROUP_2_IN_PROCESS = 'group_2_in_process',
-  GROUP_3 = 'group_3',
-  NONE = 'none',
+  GROUP_1 = '1 группа',
+  GROUP_2 = '2 группа',
+  GROUP_1_IN_PROCESS = '1 группа (в процессе)',
+  GROUP_2_IN_PROCESS = '2 группа (в процессе)',
+  GROUP_3 = '3 группа',
+  NONE = 'Отсутствует',
 }
 
 export enum MedType {
-  TRUE = 'true',
-  FALSE = 'false',
+  TRUE = 'Имеется',
+  FALSE = 'Отсутствует',
 }
 
 export enum MvdType {
-  TRUE = 'true',
-  FALSE = 'false',
+  TRUE = 'Имеется',
+  FALSE = 'Отсутствует',
 }
 
 export enum PpoType {
-  GROUP_1 = 'group_1',
-  GROUP_2 = 'group_2',
-  GROUP_3 = 'group_3',
-  GROUP_4 = 'group_4',
-  NONE = 'none',
+  GROUP_1 = '1 группа',
+  GROUP_2 = '2 группа',
+  GROUP_3 = '3 группа',
+  GROUP_4 = '4 группа',
+  NONE = 'Отсутствует',
 }
 
 export enum SignType {
-  EMPTY = 'empty',
-  MAIN = 'main',
-  CADET = 'cadet',
-  KHABAROVSK = 'khabarovsk',
-  OFFSITE_GROUP = 'offsite_group',
-  OTHER = 'other'
+  MAIN = 'Основной',
+  CADET = 'Кадет',
+  KHABAROVSK = 'Хабаровск',
+  OFFSITE_GROUP = 'Выездная группа',
+  OTHER = 'Другой'
 }
 
 export enum RecruitmentType {
-  EMPTY = 'empty',
-  MAIN = 'main',
-  ADDITIONAL_SET = 'additional_Set',
-  CADET = 'cadet',
+  MAIN = 'Основная',
+  ADDITIONAL_SET = 'Донабор',
+  CADET = 'Кадет',
 }
 
-export type PassportData = {
-  series: number;
-  num: number;
-  birthplace: string;
-  date_issue: Date;
-  issued_by: PassportIssuedByEntity;
-  department_code: string;
-};
+export enum MilitaryServiceCategory {
+  CONSCRIPTION = 'По призыву',
+  CONTRACT = 'Контракт',
+}
 
-export type ExpulsionData = {
-  reason: ReasonsEntity;
-  date: Date;
-  note:string
-};
-
-export type qualificationExamData = {
-  mark: number;
-  date: Date;
-};
+export type DocumentEducationData = {
+  number:number;
+  date:Date;
+}
 
 
 @Entity({ name: 'abits' })
@@ -157,7 +140,7 @@ export class AbitEntity {
   birthday: Date; 
 
   @Column({nullable:true})
-  note: string;
+  note?: string;
 
   @ManyToOne(() => NationalityEntity)
   nationality?: NationalityEntity
@@ -165,14 +148,17 @@ export class AbitEntity {
   @Column({ type: 'enum', enum: GenderType, default: GenderType.MEN })
   gender?: GenderType = GenderType.MEN;
 
-  @OneToMany(() => TelephoneEntity, (telephone) => telephone.abitId)
+  @OneToMany(() => TelephoneEntity, (telephone) => telephone.abit)
   telephone?: TelephoneEntity[];
 
-  @ManyToOne(() => LocationsEntity, (location) => location.id)
+  @ManyToOne(() => LocationsEntity, (location) => location.abit)
   residence?: LocationsEntity;
 
-  @Column({ type: 'enum', enum: SCType, default: SCType.EMPTY })
-  secondCitizenship?: SCType = SCType.EMPTY;
+  @Column({ type: 'enum', enum: SCType, nullable:true })
+  secondCitizenship?: SCType ;
+
+  @Column()
+  personal_file_number_count: string = '';
 
   @Column()
   personal_file_number: string = '';
@@ -186,9 +172,9 @@ export class AbitEntity {
   @Column({ type: 'enum', enum: LdType, nullable:true})
   personal_file_existence?: LdType;
 
-// /?
-  @Column()
-  personal_file_arm: number = 0;
+// // /?
+//   @Column()
+//   personal_file_arm: number = 0;
 
   @Column({
     type: 'enum',
@@ -197,11 +183,8 @@ export class AbitEntity {
   })
   family_status?: FamilyStatusType;
 
-  /////
   @Column({nullable:true})
   family_address: string;
-  // @ManyToOne(() => LocationsEntity, (location) => location.id)
-  // family_address?: LocationsEntity;
 
   @ManyToOne(() => FamilySocialStatusEntity)
   family_social_status?: FamilySocialStatusEntity; 
@@ -212,7 +195,7 @@ export class AbitEntity {
   @Column({ nullable: true })
   abit_childrens: number;
   
-  @OneToMany(() => FamilyEntity, (family) => family.abitId)
+  @OneToMany(() => FamilyEntity, (family) => family.abit)
   family?: FamilyEntity[];
 
   @Column({nullable:true})
@@ -220,14 +203,37 @@ export class AbitEntity {
 
   @Column({ default: false })
   personal_number_giving: boolean = false;
-  
-  @OneToOne(() => MilitaryServiceEntity)
-  @JoinColumn()
-  militaryService?: MilitaryServiceEntity;
+  ///////////////////////////////////////////////////////
+  @ManyToOne(() => MilitaryRanksEntity)
+  militaryService_rank: MilitaryRanksEntity;
 
+  @Column({nullable:true})
+  militaryService_post: string;
+
+  @ManyToOne(() => MilitaryPlacesEntity)
+  militaryService_place: MilitaryPlacesEntity;
+
+  @ManyToOne(() => MilitaryUnitsEntity)
+  militaryService_unit: MilitaryUnitsEntity;
+
+  @Column( { type: 'enum', enum: MilitaryServiceCategory, nullable:true })
+  militaryService_category: MilitaryServiceCategory;
+
+  @Column({default:false})
+  militaryService_dismissed: boolean;
+
+  @Column({default:false})
+  militaryService_mobilization:boolean;
+  
+  @Column({default:false})
+  militaryService_collection:boolean;
+
+  @ManyToOne(() => MilitarySVOEntity)
+  militaryService_SVO: MilitarySVOEntity
+///////////////////////////////////////////////////////////
   @ManyToOne(() => MilitaryCommissariatsEntity)
   militaryCommissariat?: MilitaryCommissariatsEntity;
-
+//////////////////////////////////////////////////////////////
   @ManyToOne(() => EstablishedQuotaEntity)
   establishedQuota?: EstablishedQuotaEntity; 
 
@@ -248,7 +254,7 @@ export class AbitEntity {
 
   @ManyToOne(() => PersonalAchievementsEntity)
   personal_achievements?: PersonalAchievementsEntity;
-
+/////////////////////////////////////////////////////////////
   @Column({
     type: 'enum',
     enum: RecruitmentType,
@@ -280,7 +286,7 @@ export class AbitEntity {
 
   @Column({nullable:true})
   admission_note: string;
-
+///////////////////////////////////////////////////
   @ManyToOne(() => SpecialtyEntity)
   specialty_military_commissariat?: SpecialtyEntity;
 
@@ -295,9 +301,18 @@ export class AbitEntity {
 
   @ManyToOne(() => SpecialtyEntity)
   specialty_admission?: SpecialtyEntity;
+///////////////////////////////////////
+  @ManyToOne(() => ReasonsEntity)
+  expulsion_reason?: ReasonsEntity;
 
-  @Column('simple-json', { nullable: true })
-  expulsion?: ExpulsionData;
+  @Column({nullable:true})
+  expulsion_date: Date;
+
+  @Column({nullable:true})
+  expulsion_note: string;
+//////////////////////////////////////
+  @ManyToOne(() => CossackSocietyEntity)
+  cossack_society?: CossackSocietyEntity;
 
   @Column({
     type: 'enum',
@@ -321,10 +336,25 @@ export class AbitEntity {
   @Column({default:false})
   document_ppo_group_card: boolean;
 
-  /////?
-  @OneToOne(() => PassportEntity, (document_passport) => document_passport.abitId)
-  @JoinColumn()
-  document_passport?: PassportEntity;
+////////////////////////////////////////////////
+  @Column({nullable:true})
+  passport_series: number;
+
+  @Column({nullable:true})
+  passport_num: number;
+
+  @Column({nullable:true})
+  passport_birthplace: string;
+
+  @Column({nullable:true})
+  passport_date_issue: Date;
+
+  @ManyToOne(() => PassportIssuedByEntity)
+  passport_issued_by: PassportIssuedByEntity;
+
+  @Column({nullable:true})
+  passport_department_code: string;
+  /////////////////////////////////////////////////
 
   @Column({ default: false })
   document_passport_presence: boolean;
@@ -339,47 +369,103 @@ export class AbitEntity {
   document_mvd_availability: MvdType;
   
   @Column({ type: 'simple-array', nullable: true })
-  document_mvd_prosecution?: string[];
+  document_mvd_prosecution?: string[] =[];
 
-  @ManyToOne(() => CossackSocietyEntity)
-  cossack_society?: CossackSocietyEntity;
+  ///////////////////////////////////////////////////////////////////////////////////////////??
+  @ManyToOne(() => CategoryEducationEntity)
+  education_category: CategoryEducationEntity;
 
-  @OneToOne(() => EducationEntity, (education) => education.abitId)
-  @JoinColumn()
-  education?: EducationEntity
+  @Column({nullable:true})
+  education_date_end: Date;
 
-  @OneToOne(() => UncanceledEducationEntity, (uncanceledEducation) => uncanceledEducation.id)
-  @JoinColumn()
-  uncanceledEducation?: UncanceledEducationEntity
+  @ManyToOne(() => InstitutesEntity) 
+  education_institute?: InstitutesEntity;
 
-  @OneToMany(() => EgeMarksEntity, (egeMarks) => egeMarks.abitId)
-  egeMarks?: EgeMarksEntity[];
+  @Column('simple-json',{ nullable: true })
+  education_document?: DocumentEducationData;
+  ////////////////////////////////////////////////////////////////////////////////////////////////
 
-  @OneToMany(() => SchoolMarksEntity, (schoolMarks) => schoolMarks.abitId)
+////////////////////////////////////////////////////////////////////////////////////////////////
+  @ManyToOne(() => CategoryUncanceledEducationEntity)
+  uncanceledEducation_category: CategoryUncanceledEducationEntity;
+
+  @Column({nullable:true})
+  uncanceledEducation_date_admission: Date
+  
+  @Column({nullable:true})
+  uncanceledEducation_date_end: Date;
+
+  @Column({nullable:true})
+  uncanceledEducation_period_study: string
+
+  @Column({nullable:true})
+  uncanceledEducation_course: number
+
+  @Column({nullable:true})
+  uncanceledEducation_semesters_end: number
+
+  @ManyToOne(() => InstitutesEntity)
+  uncanceledEducation_institute: InstitutesEntity;
+
+  @Column({nullable:true})
+  uncanceledEducation_note:string
+////////////////////////////////////////////////////////////////////////////////////////////////
+  @OneToMany(() => SchoolMarksEntity, (schoolMarks) => schoolMarks.abit)
   schoolMarks?: SchoolMarksEntity[];
 
-  @OneToMany(() => EntranceTestEntity, (entranceTest) => entranceTest.abitId)
+  @OneToMany(() => EgeMarksEntity, (egeMarks) => egeMarks.abit)
+  egeMarks?: EgeMarksEntity[];
+
+  @OneToMany(() => EntranceTestEntity, (entranceTest) => entranceTest.abit)
   entranceTest?: EntranceTestEntity[];
 
-  @OneToMany(() => SportEntity, (sport) => sport.abitId)
+  @OneToMany(() => SportEntity, (sport) => sport.abit)
   sport?: SportEntity[];
 
   @Column({nullable:true})
+  sport_score: number
+  
+  @Column({nullable:true})
   sport_date: Date
   
-  ////?
-  @Column('simple-json',{ nullable: true })
-  qualificationExam?: qualificationExamData;
-
-  //?????
-  @ManyToOne(() => AddressesEntity)
-  addresses?: AddressesEntity;
-
+  @Column({nullable:true})
+  qualificationExam_mark: number
+  
+  @Column({ type: 'simple-array', nullable: true })
+  qualificationExam_results: string[]
+  
+  @Column({nullable:true})
+  qualificationExam_date: Date
+  
+  @Column({nullable:true})
+  qualificationExam_group: string
+  //////////////////////////////////////////////////////////////
   @ManyToOne(()=>MilitaryInstituteEntity)
   arrivedFrom?: MilitaryInstituteEntity
   
   @ManyToOne(()=>MilitaryInstituteEntity)
   goneIn?: MilitaryInstituteEntity
+  ///////////////////////////////////////////////////////////////  
+  @Column({nullable:true})
+  call_number: string
+  
+  @Column({nullable:true})
+  call_date: Date
+
+  @Column({nullable:true})
+  call_result: string
+
+  @Column({nullable:true})
+  call_note: string
+//////////////////////////////////////////////////////////////////
+  @Column({nullable:true})
+  collect_date_admission: Date
+
+  @Column({default:false})
+  collect_food: boolean
+
+  @CreateDateColumn()
+  createdAt: Date
 }
 
 

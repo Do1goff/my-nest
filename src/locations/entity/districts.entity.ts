@@ -18,9 +18,9 @@ export class DistrictsEntity {
   @OneToMany(() => CitiesEntity, (city) => city.district)
   cities: CitiesEntity[]
   
-  @ManyToOne(() => StatusesLocationsEntity, (status) => status.id)
+  @ManyToOne(() => StatusesLocationsEntity, (status) => status.district)
   status?: StatusesLocationsEntity;
   
-  @OneToMany(() => LocationsEntity, (location) => location.districtId)
+  @OneToMany(() => LocationsEntity, (location) => location.district)
   location?: LocationsEntity;
 }

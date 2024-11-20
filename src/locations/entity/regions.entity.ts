@@ -18,15 +18,15 @@ export class RegionsEntity {
   @Column()
   countryRussia:boolean 
   
-  @ManyToOne(() => StatusesLocationsEntity, (status) => status.id)
+  @ManyToOne(() => StatusesLocationsEntity, (status) => status.region)
   status?: StatusesLocationsEntity;
   
   @OneToMany(() => DistrictsEntity, (district) => district.region)
   districts: DistrictsEntity[]
   
-  @OneToMany(() => LocationsEntity, (location) => location.regionId)
+  @OneToMany(() => LocationsEntity, (location) => location.region)
   location?: LocationsEntity;
   
-  @ManyToOne(() => MilitaryDistrictsEntity, (militaryDistrict) => militaryDistrict.id)
+  @ManyToOne(() => MilitaryDistrictsEntity, (militaryDistrict) => militaryDistrict.region)
   militaryDistrict?: MilitaryDistrictsEntity;
 }

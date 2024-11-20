@@ -19,8 +19,8 @@ export class CreateMilitaryCommissariatDto {
   @IsNumber()
   category: number;
 
-  // @IsString()
-  // region: string;
+  @IsString()
+  region: string;
 
   @IsOptional()
   @IsString()

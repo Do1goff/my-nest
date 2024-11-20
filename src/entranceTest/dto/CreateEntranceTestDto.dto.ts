@@ -5,10 +5,6 @@ export class CreateEntranceTestDto {
   @IsNumber()
   abitId: number;
 
-  // @IsOptional()
-  // @IsNumber()
-  // subjectId: number;
-
   @IsOptional()
   @IsNumber()
   mark: number;

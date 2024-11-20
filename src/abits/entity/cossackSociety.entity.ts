@@ -9,6 +9,6 @@ export class CossackSocietyEntity {
   @Column()
   name: string;
 
-  @OneToMany(() => AbitEntity, (abit) => abit.id)
+  @OneToMany(() => AbitEntity, (abit) => abit.cossack_society)
   abit?: AbitEntity[];
 }

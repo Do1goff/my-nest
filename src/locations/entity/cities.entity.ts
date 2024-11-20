@@ -14,9 +14,9 @@ export class CitiesEntity {
   @Column()
   name:string;
 
-  @ManyToOne(() => StatusesLocationsEntity, (status) => status.id)
+  @ManyToOne(() => StatusesLocationsEntity, (status) => status.city)
   status?: StatusesLocationsEntity;
   
-  @OneToMany(() => LocationsEntity, (location) => location.cityId)
+  @OneToMany(() => LocationsEntity, (location) => location.city)
   location?: LocationsEntity;
 }

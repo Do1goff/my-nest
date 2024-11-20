@@ -18,6 +18,12 @@ export class SpecialtyEntity {
   @Column()
   faculty: string;
 
+  @Column({nullable:true})
+  egeSubject_1: string;
+
+  @Column({nullable:true})
+  egeSubject_2: string;
+
   @OneToMany(() => AbitEntity, (abit) => abit.id)
   abit?: AbitEntity[];
 }

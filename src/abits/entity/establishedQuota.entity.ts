@@ -9,6 +9,6 @@ export class EstablishedQuotaEntity {
   @Column()
   name: string;
 
-  @OneToMany(() => AbitEntity, (abit) => abit.id)
+  @OneToMany(() => AbitEntity, (abit) => abit.establishedQuota)
   abit?: AbitEntity[];
 }

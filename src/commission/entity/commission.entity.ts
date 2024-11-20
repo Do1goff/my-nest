@@ -12,6 +12,6 @@ export class CommissionEntity {
   @Column()
   region:string = '';
 
-  @OneToMany(() => AbitEntity, (abit) => abit.id)
+  @OneToMany(() => AbitEntity, (abit) => abit.admission_commission)
   abit?: AbitEntity;
 }

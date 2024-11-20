@@ -9,6 +9,6 @@ export class ExercisesEntity {
   @Column()
   name: string;
 
-  @OneToMany(() => SportEntity, (sport) => sport.id)
+  @OneToMany(() => SportEntity, (sport) => sport.exercises)
   sport?: SportEntity[];
 }

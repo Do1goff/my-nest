@@ -30,6 +30,6 @@ export class FamilyEntity {
   @Column({ default: false })
   fail: boolean = false;
 
-  @ManyToOne(() => AbitEntity, (abit) => abit.id)
+  @ManyToOne(() => AbitEntity, (abit) => abit.family)
   abit?: AbitEntity;
 }

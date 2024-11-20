@@ -15,6 +15,6 @@ export class ExaminationGroupEntity {
   @Column()
   number: number;
 
-  @OneToMany(() => AbitEntity, (abit) => abit.id)
+  @OneToMany(() => AbitEntity, (abit) => abit.admission_examination_group)
   abit?: AbitEntity;
 }

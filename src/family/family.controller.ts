@@ -27,28 +27,6 @@ export class FamilyController {
       },
     });
   }
-  // @Get(':id')
-  // async get(@Param('id', ParseIntPipe) id: number) {
-  //   return await this.familyService.findOne({
-  //     where: {
-  //       abitId: id,
-  //     },
-  //   });
-  // }
-  // @Get()
-  // async get() {
-  //   return await this.familyService.find({
-  //     take: 50,
-  //   });
-  // }
-  // @Get(':id')
-  // async getOne(@Param('id', ParseIntPipe) id: number) {
-  //   return await this.familyService.findOne({
-  //     where: {
-  //       id: id,
-  //     },
-  //   }); 
-  // }
   @Put(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,

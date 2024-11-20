@@ -9,6 +9,6 @@ export class MilitaryRanksEntity {
   @Column()
   name: string;
 
-  @OneToMany(() => AbitEntity, (abit) => abit.id)
+  @OneToMany(() => AbitEntity, (abit) => abit.militaryService_rank)
   abit?: AbitEntity[];
 }

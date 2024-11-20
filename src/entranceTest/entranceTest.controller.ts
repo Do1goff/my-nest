@@ -6,37 +6,6 @@ import { EntranceTestService } from './entranceTest.service'
 export class EntranceTestController {
     constructor(private entranceTestService: EntranceTestService){}
 
-    // @Post()
-    // async create(@Body() data:CreateEntranceTestDto){
-    //     return this.entranceTestService.create(data)
-    // }
-
-    // @Get(':id')
-    // async get(@Param('id', ParseIntPipe) id: number) {
-    //   return await this.entranceTestService.find({
-    //     where: {
-    //       abitId: id,
-    //     },
-    //     take: 50,
-    //     relations: {
-    //       subject: true,
-    //     },
-    //   });
-    // }
-    // @Put(':id')
-    // async update(
-    //   @Param('id', ParseIntPipe) id: number,
-    //   @Body() updateData: CreateEntranceTestDto,
-    // ) {
-    //   return await this.entranceTestService.update(
-    //     {
-    //       abitSubjectId: id,
-    //     },
-    //     updateData,
-    //   );
-    // }
-
-
     @Post()
   async create(@Body() data: CreateEntranceTestDto) {
     const mark = this.entranceTestService.create(data);

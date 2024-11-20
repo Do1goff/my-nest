@@ -12,6 +12,6 @@ export class PassportIssuedByEntity {
   @Column()
   department_code: string;
 
-  @OneToMany(() => AbitEntity, (abit) => abit.id)
+  @OneToMany(() => AbitEntity, (abit) => abit.passport_issued_by)
   abit?: AbitEntity;
 }

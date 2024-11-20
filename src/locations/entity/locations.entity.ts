@@ -1,5 +1,5 @@
 import { AbitEntity } from 'src/abits/entity/abit.entity'
-import { InstitutesEntity } from 'src/instituts/entity/institutes.entity'
+import { InstitutesEntity } from 'src/education/entity/institutes.entity'
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { CitiesEntity } from './cities.entity'
 import { DistrictsEntity } from './districts.entity'
@@ -19,13 +19,13 @@ export class LocationsEntity {
   @Column({nullable:true})
   cityId: number;
   
-  @ManyToOne(() => RegionsEntity, (region) => region.id)
+  @ManyToOne(() => RegionsEntity, (region) => region.location)
   region?: RegionsEntity;
 
-  @ManyToOne(() => DistrictsEntity, (district) => district.id)
+  @ManyToOne(() => DistrictsEntity, (district) => district.location)
   district?: DistrictsEntity;
 
-  @ManyToOne(() => CitiesEntity, (city) => city.id)
+  @ManyToOne(() => CitiesEntity, (city) => city.location)
   city?: CitiesEntity;
   
   @OneToMany(() => AbitEntity, (abit) => abit.residence)

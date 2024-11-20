@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { AbitEntity } from 'src/abits/entity/abit.entity'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity({ name: 'categoryUncanceledEducation' })
 export class CategoryUncanceledEducationEntity {
@@ -8,6 +9,6 @@ export class CategoryUncanceledEducationEntity {
   @Column()
   name: string;
 
-  // @OneToMany(() => AbitEntity, (abit) => abit.id)
-  // abit?: AbitEntity[];
+  @OneToMany(() => AbitEntity, (abit) => abit.uncanceledEducation_category)
+  abit?: AbitEntity[];
 }

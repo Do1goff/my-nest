@@ -7,4 +7,4 @@ export class CreatePassportIssuedByDto {
   @IsString()
   department_code: string;
 }
- 
+  

@@ -9,6 +9,6 @@ export class FamilySocialStatusEntity {
   @Column()
   name: string;
 
-  @OneToMany(() => AbitEntity, (abit) => abit.id)
+  @OneToMany(() => AbitEntity, (abit) => abit.family_social_status)
   abit?: AbitEntity[];
 }

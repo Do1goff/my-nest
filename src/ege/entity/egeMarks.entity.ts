@@ -10,20 +10,17 @@ export class EgeMarksEntity {
   @Column()
   abitId: number;
 
-  // @Column()
-  // subjectId: number;
-
   @Column()
   mark: number;
 
   @Column() 
   date: Date;
 
-  @ManyToOne(() => AbitEntity, (abit) => abit.id)
+  @ManyToOne(() => AbitEntity, (abit) => abit.egeMarks)
   abit?: AbitEntity;
 
-  @ManyToOne(() => SubjectsEntity, (subject) => subject.id)
+  @ManyToOne(() => SubjectsEntity, (subject) => subject.egeMarks)
   subject?: SubjectsEntity;
-
+ 
 
 }

@@ -10,15 +10,13 @@ export class SchoolMarksEntity {
   @Column()
   abitId: number;
 
-  // @Column()
-  // subjectId: number;
-
   @Column()
   mark: number;
 
-  @ManyToOne(() => AbitEntity, (abit) => abit.id)
+  @ManyToOne(() => AbitEntity, (abit) => abit.schoolMarks)
   abit?: AbitEntity;
 
-  @ManyToOne(() => SubjectsEntity)
+  @ManyToOne(() => SubjectsEntity, (subject) => subject.schoolMarks)
   subject?: SubjectsEntity;
+ 
 }

@@ -4,11 +4,7 @@ export class CreateEgeMarksDto {
   @IsOptional()
   @IsNumber()
   abitId: number;
-
-  // @IsOptional()
-  // @IsNumber()
-  // subjectId: number;
-
+  
   @IsOptional()
   @IsNumber()
   mark: number;

@@ -8,13 +8,13 @@ export class ReasonsEntity {
 
   @Column()
   name: string;
-
+  
   @Column()
   abbreviation: string;
   
   @Column()
   foundation: string;
 
-  @OneToMany(() => AbitEntity, (abit) => abit.id)
+  @OneToMany(() => AbitEntity, (abit) => abit.expulsion_reason)
   abit?: AbitEntity;
 }

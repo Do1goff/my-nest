@@ -15,6 +15,6 @@ export class TelephoneEntity {
   @Column({ nullable: true })
   note: string;
 
-  @ManyToOne(() => AbitEntity, (abit) => abit.id)
+  @ManyToOne(() => AbitEntity, (abit) => abit.telephone)
   abit?: AbitEntity;
 }

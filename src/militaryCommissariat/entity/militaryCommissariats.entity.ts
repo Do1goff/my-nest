@@ -43,6 +43,6 @@ export class MilitaryCommissariatsEntity {
   @Column({ nullable: true })
   email: string;
 
-  @OneToMany(() => AbitEntity, (abit) => abit.id)
+  @OneToMany(() => AbitEntity, (abit) => abit.militaryCommissariat)
   abit?: AbitEntity[];
 }

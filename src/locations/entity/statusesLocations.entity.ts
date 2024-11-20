@@ -11,12 +11,12 @@ export class StatusesLocationsEntity {
   @Column()
   name:string;
 
-  @OneToMany(() => RegionsEntity, (region) => region.id)
+  @OneToMany(() => RegionsEntity, (region) => region.status)
   region?: RegionsEntity;
   
-  @OneToMany(() => DistrictsEntity, (district) => district.id)
+  @OneToMany(() => DistrictsEntity, (district) => district.status)
   district?: DistrictsEntity;
   
-  @OneToMany(() => CitiesEntity, (city) => city.id)
+  @OneToMany(() => CitiesEntity, (city) => city.status)
   city?: CitiesEntity;
 }

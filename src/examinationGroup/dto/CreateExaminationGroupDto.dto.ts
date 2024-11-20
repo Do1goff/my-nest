@@ -7,4 +7,6 @@ export class CreateExaminationGroupDto {
   @IsNumber()
   number: number;
   
+  @IsString()
+  name: string;
 }

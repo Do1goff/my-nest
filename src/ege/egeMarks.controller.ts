@@ -14,35 +14,6 @@ import { EgeMarksService } from './egeMarks.service'
 export class EgeMarksController {
   constructor(private egeMarksService: EgeMarksService) {}
 
-  // @Get(':id')
-  // async get(@Param('id', ParseIntPipe) id: number) {
-  //   return await this.egeMarksService.find({
-  //     where: {
-  //       abitId: id,
-  //     },
-  //     take: 50,
-  //     relations: {
-  //       subject: true,
-  //     },
-  //   }); 
-  // }
-  // @Put(':id')
-  // async update(
-  //   @Param('id', ParseIntPipe) id: number,
-  //   @Body() updateData: CreateEgeMarksDto,
-  // ) {
-  //   return await this.egeMarksService.update(
-  //     {
-  //       abitSubjectId: id,
-  //     },
-  //     updateData,
-  //   );
-  // }
-
-  // @Post()
-  // async create(@Body() data: CreateEgeMarksDto) {
-  //   return this.egeMarksService.create(data);
-  // }
 
   @Post()
   async create(@Body() data: CreateEgeMarksDto) {
@@ -63,6 +34,15 @@ export class EgeMarksController {
       where: {
         abitId: id,
       },
+      relations: {
+        subject: true,
+      },
+    });
+  }
+
+  @Get()
+  async getALL() {
+    return await this.egeMarksService.find({
       relations: {
         subject: true,
       },
