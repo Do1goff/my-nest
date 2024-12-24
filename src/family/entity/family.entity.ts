@@ -18,6 +18,9 @@ export class FamilyEntity {
   @Column()
   lastName: string = '';
 
+  @Column({nullable:true})
+  lastName_second: string;
+
   @Column({ nullable: true })
   surName: string;
 

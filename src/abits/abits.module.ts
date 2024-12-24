@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { RegionsEntity } from 'src/locations/entity/regions.entity'
+import { RegionsService } from 'src/locations/regions.service'
 import { MilitaryPlacesEntity } from '../militaryService/entity/militaryPlaces.entity'
 import { MilitaryRanksEntity } from '../militaryService/entity/militaryRanks.entity'
 import { MilitarySVOEntity } from '../militaryService/entity/militarySVO.entity'
@@ -55,7 +57,8 @@ import { SubjectsService } from './subjects.service'
       MilitaryInstituteEntity,
       MilitaryRanksEntity,
       MilitaryPlacesEntity,
-      MilitarySVOEntity
+      MilitarySVOEntity,
+      RegionsEntity
     ]),
     AbitsModule,
   ],
@@ -73,7 +76,8 @@ import { SubjectsService } from './subjects.service'
     MilitaryInstituteService,
     MilitaryRanksService,
     MilitaryPlacesService,
-    MilitarySVOService
+    MilitarySVOService,
+    RegionsService,
   ],
   controllers: [
     AbitsController,

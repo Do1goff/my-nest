@@ -27,10 +27,10 @@ export class FilterController {
   }
 
   @Post('/export')
-  async exportFilterToExcel(@Body() data:any,@Res() res: Response) {
-    const abits = data.abits
-    const exportData = abits.map(abit => Object.keys(abit).filter(key => data.fields.includes(key)).reduce((obj, key)=> {obj[key] = abit[key]; return obj}, {}))
-    const filePath = await this.filterService.exportFilterToExcel(exportData)
+  async exportFilterToExcel(@Body() abits:any,@Res() res: Response) { 
+    // const abits = data.abits
+    // const exportData = abits.map(abit => Object.keys(abit).filter(key => data.fields.includes(key)).reduce((obj, key)=> {obj[key] = abit[key]; return obj}, {}))
+    const filePath = await this.filterService.exportFilterToExcel(abits)
     res.download(filePath, 'abits.xlsx', (err) => {
       if (err) {
         res.status(500).send({

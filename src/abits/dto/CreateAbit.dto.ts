@@ -258,12 +258,12 @@ export class CreateAbitDto {
   document_ppo_group_card: boolean
 
   @IsOptional()
-  @IsNumber()
-  passport_series: number
+  @IsString()
+  passport_series: string
 
   @IsOptional()
-  @IsNumber()
-  passport_num: number
+  @IsString()
+  passport_num: string
 
   @IsOptional()
   @IsString()

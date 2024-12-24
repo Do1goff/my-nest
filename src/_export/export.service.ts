@@ -25,13 +25,64 @@ export class ExportService {
     const data = XLSX.utils.sheet_to_json(worksheet);
 
     const info = []
-    for(let i in data){
-      if (worksheet[`A${2+parseInt(i)}`] != null){
-        info.push(Object.assign({},{fio:worksheet[`A${2+parseInt(i)}`].v, subject:worksheet[`B${2+parseInt(i)}`].v, mark:worksheet[`C${2+parseInt(i)}`].v, date:worksheet[`D${2+parseInt(i)}`].v}))
-      } else {
-        break
-      }   
+    let i =1
+      while (worksheet[`A${i}`] != null){
+        info.push(Object.assign({},{fio:`${worksheet[`A${i}`].v} ${worksheet[`B${i}`].v} ${worksheet[`C${i}`].v}`, subject:worksheet[`G${i}`].v, mark:worksheet[`H${i}`].v, date:worksheet[`F${i}`].w, passport:`${worksheet[`D${i}`].v} ${worksheet[`E${i}`].v}`}))
+        i+=1
+      }  
+    return info
+  }
+ 
+  async sportFromExcel(file: Express.Multer.File){
+    const workbook = XLSX.read(file.buffer, { type: 'buffer' });
+    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+    const data = XLSX.utils.sheet_to_json(worksheet);
+
+    const info = []
+    if (worksheet[`D14`]?.v == 3 && worksheet[`I13`]?.v.includes('упражнения')){
+      for(let i in workbook.SheetNames){
+        if(workbook.SheetNames[i].includes("-")){          
+          const workSheet = workbook.Sheets[workbook.SheetNames[i]]
+          for(let i in data){
+            if (workSheet[`D${15+parseInt(i)}`] != null){
+              if (workSheet[`I${15+parseInt(i)}`] != null){
+                info.push(Object.assign({},{fio:workSheet[`D${15+parseInt(i)}`].v, exercise_1_num:workSheet[`I${15+parseInt(i)}`].v,exercise_1_result:workSheet[`J${15+parseInt(i)}`].v,exercise_1_score:workSheet[`K${15+parseInt(i)}`].v, exercise_2_num:workSheet[`L${15+parseInt(i)}`].v,exercise_2_result:workSheet[`M${15+parseInt(i)}`].v,exercise_2_score:workSheet[`N${15+parseInt(i)}`].v, exercise_3_num:workSheet[`O${15+parseInt(i)}`].v,exercise_3_result:workSheet[`P${15+parseInt(i)}`].v,exercise_3_score:workSheet[`Q${15+parseInt(i)}`].v}))
+              }
+            } else {
+              break
+            }   
+          }
+        } 
+      }
+    } else {
+      for(let i in workbook.SheetNames){
+        if(workbook.SheetNames[i].includes('ждан')|| workbook.SheetNames[i]=='Кадеты' ){          
+          const workSheet = workbook.Sheets[workbook.SheetNames[i]]
+          if (workSheet[`F14`]?.v == 3 && workSheet[`K13`]?.v.includes('упражнения')){            
+            for(let i in data){
+              if (workSheet[`F${15+parseInt(i)}`] != null){
+                if (workSheet[`K${15+parseInt(i)}`] != null){
+                  info.push(Object.assign({},{fio:workSheet[`F${15+parseInt(i)}`].v, exercise_1_num:workSheet[`K${15+parseInt(i)}`].v,exercise_1_result:workSheet[`L${15+parseInt(i)}`].v,exercise_1_score:workSheet[`M${15+parseInt(i)}`].v, exercise_2_num:workSheet[`N${15+parseInt(i)}`].v,exercise_2_result:workSheet[`O${15+parseInt(i)}`].v,exercise_2_score:workSheet[`P${15+parseInt(i)}`].v, exercise_3_num:workSheet[`Q${15+parseInt(i)}`].v,exercise_3_result:workSheet[`R${15+parseInt(i)}`].v,exercise_3_score:workSheet[`S${15+parseInt(i)}`].v}))
+                }
+              } else {
+                break
+              }   
+            }
+          } else if (workSheet[`E14`]?.v == 3 && workSheet[`J13`]?.v.includes('упражнения')){            
+            for(let i in data){
+              if (workSheet[`E${15+parseInt(i)}`] != null){
+                if (workSheet[`J${15+parseInt(i)}`] != null){
+                  info.push(Object.assign({},{fio:workSheet[`E${15+parseInt(i)}`].v, exercise_1_num:workSheet[`J${15+parseInt(i)}`].v,exercise_1_result:workSheet[`K${15+parseInt(i)}`].v,exercise_1_score:workSheet[`L${15+parseInt(i)}`].v, exercise_2_num:workSheet[`M${15+parseInt(i)}`].v,exercise_2_result:workSheet[`N${15+parseInt(i)}`].v,exercise_2_score:workSheet[`O${15+parseInt(i)}`].v, exercise_3_num:workSheet[`P${15+parseInt(i)}`].v,exercise_3_result:workSheet[`Q${15+parseInt(i)}`].v,exercise_3_score:workSheet[`R${15+parseInt(i)}`].v}))
+                }
+              } else {
+                break
+              }   
+            }
+          }
+        } 
+      }
     }
+  
     return info
   }
  
@@ -69,6 +120,23 @@ export class ExportService {
     return {info, group}
   }
 
+  async callsFromExcel(file: Express.Multer.File){
+    const workbook = XLSX.read(file.buffer, { type: 'buffer' });
+    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+    
+    const data = XLSX.utils.sheet_to_json(worksheet);
+
+    const info = []
+    for(let i in data){
+      if (worksheet[`A${2+parseInt(i)}`] != null){
+        info.push(Object.assign({},{ld:worksheet[`A${2+parseInt(i)}`]?.v,fio:worksheet[`C${2+parseInt(i)}`]?.v, date_admission:worksheet[`D${2+parseInt(i)}`]?.w, num:worksheet[`E${2+parseInt(i)}`]?.v, date:worksheet[`F${2+parseInt(i)}`].w}))
+      } else { 
+        break
+      }   
+    }    
+    return info
+  }
+
   async importFromExcel(file: Express.Multer.File) {
     const workbook = XLSX.read(file.buffer, { type: 'buffer' });
     const worksheet = workbook.Sheets[workbook.SheetNames[0]];
@@ -81,7 +149,9 @@ export class ExportService {
     return abits    
   }
 
-
+  async egeToCsv(data:ExportDto){
+    fs.writeFileSync(data.fileName,data.data,{encoding:'utf-8'})
+  }
 
   async exportToExcel(): Promise<string> {
     const abits = await this.abitRepository.find({
@@ -195,7 +265,7 @@ export class ExportService {
     return filePathNew
   }
 
-  async holesToStatements(data:ExportDto){
+  async toTemplateExcel(data:ExportDto){
     const fileName = data.fileName
     const filePath = path.resolve(__dirname, '..', '..', '..', '..', 'TEMPLATE_FILES',fileName)
 
@@ -203,7 +273,7 @@ export class ExportService {
     const template = new XlsxTemplate(content)
     var sheetNumber = 1
 
-    template.substitute(sheetNumber, data)
+    template.substitute(sheetNumber, data.data)
 
     var buffer = template.generate({type:'nodebuffer'})
     let filePathNew = path.resolve(__dirname, '..', '..', '..', '..', 'EXPORT_FILES',fileName)

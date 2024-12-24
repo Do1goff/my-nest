@@ -136,7 +136,7 @@ export class AbitEntity {
   @Column({ nullable: true })
   surName?: string;
 
-  @Column()
+  @Column({nullable:true})
   birthday: Date; 
 
   @Column({nullable:true})
@@ -158,13 +158,13 @@ export class AbitEntity {
   secondCitizenship?: SCType ;
 
   @Column()
-  personal_file_number_count: string = '';
+  personal_file_number_count: string;
 
   @Column()
-  personal_file_number: string = '';
+  personal_file_number: string;
 
-  @Column()
-  personal_file_reg: string = '';  
+  @Column({nullable:true})
+  personal_file_reg: string;  
 
   @Column({ nullable: true })
   personal_file_date_reg: Date; 
@@ -252,8 +252,8 @@ export class AbitEntity {
   @Column({default:false})
   priorityRight_test: boolean
 
-  @ManyToOne(() => PersonalAchievementsEntity)
-  personal_achievements?: PersonalAchievementsEntity;
+  @OneToMany(() => PersonalAchievementsEntity, (achievement) => achievement.abit)
+  personal_achievements?: PersonalAchievementsEntity[];
 /////////////////////////////////////////////////////////////
   @Column({
     type: 'enum',
@@ -338,10 +338,10 @@ export class AbitEntity {
 
 ////////////////////////////////////////////////
   @Column({nullable:true})
-  passport_series: number;
+  passport_series: string;
 
   @Column({nullable:true})
-  passport_num: number;
+  passport_num: string;
 
   @Column({nullable:true})
   passport_birthplace: string;
@@ -369,7 +369,7 @@ export class AbitEntity {
   document_mvd_availability: MvdType;
   
   @Column({ type: 'simple-array', nullable: true })
-  document_mvd_prosecution?: string[] =[];
+  document_mvd_prosecution?: string[];
 
   ///////////////////////////////////////////////////////////////////////////////////////////??
   @ManyToOne(() => CategoryEducationEntity)
@@ -451,6 +451,9 @@ export class AbitEntity {
   
   @Column({nullable:true})
   call_date: Date
+  
+  @Column({nullable:true})
+  call_date_admission: Date
 
   @Column({nullable:true})
   call_result: string

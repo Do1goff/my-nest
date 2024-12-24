@@ -17,8 +17,8 @@ export class PersonalAchievementsEntity {
   test: boolean;
 
   @ManyToOne(() => AbitEntity, (abit) => abit.personal_achievements)
-  abit?: AbitEntity;
+  abit?: AbitEntity[];
 
-  @ManyToOne(() => ListAchievementsEntity, (achievement) => achievement.id)
+  @ManyToOne(() => ListAchievementsEntity, (achievement) => achievement.personalAchievements)
   achievement?: ListAchievementsEntity;
 }

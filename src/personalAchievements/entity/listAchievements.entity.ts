@@ -14,7 +14,7 @@ export class ListAchievementsEntity {
 
   @OneToMany(
     () => PersonalAchievementsEntity,
-    (personalAchievements) => personalAchievements.abitId,
+    (personalAchievements) => personalAchievements.achievement,
   )
   personalAchievements?: PersonalAchievementsEntity[];
 }

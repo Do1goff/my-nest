@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { AbitEntity } from 'src/abits/entity/abit.entity'
+import { RegionsEntity } from 'src/locations/entity/regions.entity'
 import {
   FindManyOptions,
   FindOneOptions,
@@ -15,6 +16,8 @@ export class AbitService {
   constructor(
     @InjectRepository(AbitEntity)
     private abitRepository: Repository<AbitEntity>,
+    @InjectRepository(RegionsEntity)
+    private regionRepository: Repository<RegionsEntity>,
   ) {}
 
   find(options?: FindManyOptions<AbitEntity>): Promise<AbitEntity[]> {
@@ -26,6 +29,11 @@ export class AbitService {
   }
 
   async getFullAbits() {
+    const regions = await this.regionRepository.find({
+      relations:{
+        status:true,
+      }
+    })
     const abits = await this.abitRepository.find({
       relations: {
         nationality: true,
@@ -37,7 +45,6 @@ export class AbitService {
         establishedQuota: true,
         separateQuota:true,
         priorityRight: true,
-        personal_achievements: true,
         admission_commission: true,
         admission_examination_group: true,
         specialty_military_commissariat: true,
@@ -58,6 +65,8 @@ export class AbitService {
       join:{
         alias:'abit',
         leftJoinAndSelect:{
+          personal_achievements:'abit.personal_achievements',
+          achievements_name:'personal_achievements.achievement',
           ege:'abit.egeMarks',
           ege_subject:'ege.subject',
           entrance:'abit.entranceTest',
@@ -100,6 +109,7 @@ export class AbitService {
         }
       }
     })
+    
     const fullAbits = abits.map(abit =>({
       id:abit.id,
       lastName:abit.lastName,
@@ -155,6 +165,7 @@ export class AbitService {
       militaryCommissariat:abit.militaryCommissariat?.name,
       militaryCommissariat_name:abit.militaryCommissariat?.name_official,
       militaryCommissariat_region:abit.militaryCommissariat?.region,
+      militaryCommissariat_region_address:abit.militaryCommissariat?regions.find(reg=>reg.region==abit.militaryCommissariat?.region)?.name:'',
       militaryCommissariat_address:abit.militaryCommissariat?.address,
       militaryDistrict:abit.militaryCommissariat?.militaryDistrict?.abbreviation,
       militaryDistrict_name:abit.militaryCommissariat?.militaryDistrict?.name,
@@ -164,7 +175,10 @@ export class AbitService {
       separateQuota_test:abit.separateQuota_test,
       priorityRight:abit.priorityRight?.name,
       priorityRight_test:abit.priorityRight_test,
+
       personal_achievements:abit.personal_achievements,
+      personal_achievements_score:Math.min(abit.personal_achievements.map(achievement => achievement.test?achievement.achievement.value:0).reduce(function(a,b){return a+b;},0),10),
+      
       recruitment:abit.recruitment,
       sign:abit.sign,
       admission_date_reg:abit.admission_date_reg,
@@ -242,6 +256,7 @@ export class AbitService {
       sport_score_1:abit.sport[0]?.score,
       sport_score_2:abit.sport[1]?.score,
       sport_score_3:abit.sport[2]?.score,
+      sport_score:abit.sport[0]?.score+abit.sport[1]?.score+abit.sport[2]?.score-95<100?abit.sport[0]?.score+abit.sport[1]?.score+abit.sport[2]?.score-95:abit.sport[2]?.score?100:null,
 
       sport_date:abit.sport_date,
       qualificationExam_mark:abit.qualificationExam_mark,
