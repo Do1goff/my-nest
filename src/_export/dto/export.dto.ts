@@ -1,11 +1,8 @@
-import {
-  IsString
-} from 'class-validator'
+import { IsString } from 'class-validator'
 
 export class ExportDto {
-  data: any;
-  
+  data: any
+
   @IsString()
-  fileName: string;
-  
+  fileName: string
 }

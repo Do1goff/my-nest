@@ -9,6 +9,9 @@ export class FormEntranceTestEntity {
   @Column()
   name: string;
 
+  @Column()
+  abbreviation: string;
+
 	@OneToMany(
     () => EntranceTestEntity,
     (entranceTest) => entranceTest.abitSubjectId,

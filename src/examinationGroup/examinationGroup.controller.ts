@@ -25,6 +25,9 @@ export class ExaminationGroupController {
   @Get()
   async get() {
     return await this.examinationGroupService.find({
+      relations:{
+        abit:true
+      }
     });
   }
   @Get(':id')

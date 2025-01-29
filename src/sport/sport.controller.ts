@@ -14,18 +14,47 @@ import { SportService } from './sport.service'
 export class SportController {
   constructor(private sportService: SportService) {}
 
-
   @Post()
   async create(@Body() data: CreateSportDto) {
-    const score = this.sportService.create(data);
-    return await this.sportService.findOne({
+    const ASid = await this.sportService.find({
       where: {
-        id: (await score).id,
+        abitId: data.abitId,
       },
       relations: {
         exercises: true,
       },
-    });
+    })
+    if (
+      ASid.find((sport) => sport.exercises.type == data.exercises.type) != null
+    ) {
+      const x = ASid.find(
+        (sport) => sport.exercises.type == data.exercises.type,
+      )
+      await this.sportService.update(
+        {
+          id: x.id,
+        },
+        data,
+      )
+      return await this.sportService.findOne({
+        where: {
+          id: x.id,
+        },
+        relations: {
+          exercises: true,
+        },
+      })
+    } else {
+      const score = this.sportService.create(data)
+      return await this.sportService.findOne({
+        where: {
+          id: (await score).id,
+        },
+        relations: {
+          exercises: true,
+        },
+      })
+    }
   }
 
   @Get(':id')
@@ -37,7 +66,7 @@ export class SportController {
       relations: {
         exercises: true,
       },
-    });
+    })
   }
 
   @Get(':id')
@@ -49,7 +78,7 @@ export class SportController {
       relations: {
         exercises: true,
       },
-    });
+    })
   }
 
   @Put(':id')
@@ -62,7 +91,7 @@ export class SportController {
         id: id,
       },
       updateData,
-    );
+    )
     return await this.sportService.findOne({
       where: {
         id: id,
@@ -70,6 +99,6 @@ export class SportController {
       relations: {
         exercises: true,
       },
-    });
+    })
   }
 }

@@ -9,6 +9,12 @@ export class CategoryEducationEntity {
   @Column()
   name: string;
 
+  @Column()
+  abbreviation: string;
+
+  @Column()
+  level: string;
+
   @OneToMany(() => AbitEntity, (abit) => abit.education_category)
   abit?: AbitEntity[];
 }

@@ -2,6 +2,7 @@ import { IsBoolean, IsOptional, IsString } from 'class-validator'
 
 export class CreateRegionDto {
   
+	@IsOptional()
   @IsString()
 	name:string;
 
@@ -9,6 +10,7 @@ export class CreateRegionDto {
   @IsString()
 	region:string;
 	
+	@IsOptional()
   @IsBoolean()
 	countryRussia:boolean;
 	

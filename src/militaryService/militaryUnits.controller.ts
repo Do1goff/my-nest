@@ -23,7 +23,7 @@ export class MilitaryUnitsController {
   async get() {
     return await this.militaryUnitsService.find({
       relations:{
-        address:true
+        // address:true
       }
     });
   }
@@ -34,7 +34,7 @@ export class MilitaryUnitsController {
         id: id,
       },
       relations:{
-        address:true
+        // address:true
       }
     });
   }

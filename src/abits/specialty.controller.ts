@@ -7,8 +7,12 @@ export class AbitSpecialtyController {
 
   @Get()
   async get() {
-    const specialty = await this.abitSpecialtyService.find({});
-    return specialty;
+    const specialty = await this.abitSpecialtyService.find({
+      relations: {
+        abit: true,
+        abit_MC: true,
+      },
+    })
+    return specialty
   }
-
 }

@@ -7,7 +7,7 @@ export class EstablishedQuotaController {
 
   @Get()
   async get() {
-    const data = await this.establishedQuotaService.find({});
-    return data;
+    const data = await this.establishedQuotaService.find({})
+    return data
   }
 }

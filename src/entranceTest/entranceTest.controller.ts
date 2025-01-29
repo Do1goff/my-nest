@@ -8,16 +8,40 @@ export class EntranceTestController {
 
     @Post()
   async create(@Body() data: CreateEntranceTestDto) {
-    const mark = this.entranceTestService.create(data);
-    return await this.entranceTestService.findOne({
-      where: {
-        abitSubjectId: (await mark).abitSubjectId,
-      },
-      relations: {
-        subject: true,
-        form:true
-      },
-    });
+    const ASid = await this.entranceTestService.findOne({
+      where:{
+        abitId:data.abitId,
+        subject:data.subject
+      }
+    })
+    if (ASid!=null){
+      await this.entranceTestService.update(
+        {
+          abitSubjectId: ASid.abitSubjectId ,
+        },
+        data,
+      );
+      return await this.entranceTestService.findOne({
+        where: {
+          abitSubjectId: ASid.abitSubjectId,
+        },
+        relations: {
+          subject: true,
+        },
+      });
+    }else{
+      const mark = this.entranceTestService.create(data);
+      return await this.entranceTestService.findOne({
+        where: {
+          abitSubjectId: (await mark).abitSubjectId,
+        },
+        relations: {
+          subject: true,
+          form:true
+        },
+      });
+    }
+   
   }
 
   @Get(':id')

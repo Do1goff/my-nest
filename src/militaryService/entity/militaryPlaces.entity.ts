@@ -9,6 +9,9 @@ export class MilitaryPlacesEntity {
   @Column()
   name: string;
 
+  @Column()
+  abbreviation: string;
+
   @OneToMany(() => AbitEntity, (abit) => abit.militaryService_place)
   abit?: AbitEntity[];
 }

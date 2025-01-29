@@ -7,8 +7,9 @@ export class MilitaryPlacesController {
 
   @Get()
   async get() {
-    const militaryPlaces = await this.MilitaryPlacesService.find({});
-    return militaryPlaces;
+    const militaryPlaces = await this.MilitaryPlacesService.find({
+      relations: { abit: true },
+    })
+    return militaryPlaces
   }
-
 }

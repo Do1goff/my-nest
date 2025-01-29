@@ -9,6 +9,12 @@ export class CategoryUncanceledEducationEntity {
   @Column()
   name: string;
 
+  @Column()
+  abbreviation: string;
+
+  @Column()
+  level: string;
+
   @OneToMany(() => AbitEntity, (abit) => abit.uncanceledEducation_category)
   abit?: AbitEntity[];
 }

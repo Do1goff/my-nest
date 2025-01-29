@@ -1,4 +1,5 @@
 import { IsDateString, IsNumber, IsOptional } from 'class-validator'
+import { SubjectsEntity } from 'src/abits/entity/subjects.entity'
 
 export class CreateEgeMarksDto {
   @IsOptional()
@@ -12,4 +13,7 @@ export class CreateEgeMarksDto {
   @IsOptional()
   @IsDateString()
   date: Date;
+
+  @IsOptional()
+  subject: SubjectsEntity;
 }

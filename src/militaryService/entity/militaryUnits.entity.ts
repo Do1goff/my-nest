@@ -1,18 +1,23 @@
 import { AbitEntity } from 'src/abits/entity/abit.entity'
-import { LocationsEntity } from 'src/locations/entity/locations.entity'
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity({ name: 'militaryUnits' })
 export class MilitaryUnitsEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column()
-  name: string;
+  name: string
 
-  @ManyToOne(() => LocationsEntity, (location) => location.id)
-  address?: LocationsEntity;
+  @Column()
+  address: string
+
+  @Column({ nullable: true })
+  mail: string
+
+  // @ManyToOne(() => CitiesEntity, (location) => location.id)
+  // address?: CitiesEntity;
 
   @OneToMany(() => AbitEntity, (abit) => abit.militaryService_unit)
-  abit?: AbitEntity;
+  abit?: AbitEntity
 }

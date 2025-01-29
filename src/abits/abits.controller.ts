@@ -5,7 +5,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
-  Put
+  Put,
 } from '@nestjs/common'
 import { AbitService } from './abits.service'
 import { CreateAbitDto } from './dto/CreateAbit.dto'
@@ -16,7 +16,7 @@ export class AbitsController {
 
   @Post()
   async create(@Body() createAbitDto: CreateAbitDto) {
-    return this.abitService.create(createAbitDto);
+    return this.abitService.create(createAbitDto)
   }
 
   @Get()
@@ -24,15 +24,15 @@ export class AbitsController {
     const abits = await this.abitService.find({
       relations: {
         nationality: true,
-        residence:true,
-        family_social_status:true,
-        militaryService_rank:true,
-        militaryService_place:true,
-        militaryService_SVO:true,
-        militaryService_unit:true,
+        residence: true,
+        family_social_status: true,
+        militaryService_rank: true,
+        militaryService_place: true,
+        militaryService_SVO: true,
+        militaryService_unit: true,
         militaryCommissariat: true,
         establishedQuota: true,
-        separateQuota:true,
+        separateQuota: true,
         priorityRight: true,
         personal_achievements: true,
         admission_commission: true,
@@ -42,26 +42,32 @@ export class AbitsController {
         specialty_2: true,
         specialty_3: true,
         specialty_admission: true,
-        expulsion_reason:true,
+        expulsion_reason: true,
         cossack_society: true,
-        passport_issued_by:true,
-        education_category:true,
-        education_institute:true,
-        uncanceledEducation_category:true,
-        uncanceledEducation_institute:true,
-        arrivedFrom:true,
-        goneIn:true,   
-        telephone:true,
-        family:true,
-        schoolMarks:true,
-        egeMarks:true,
-        entranceTest:true,
-        sport:true,     
+        passport_issued_by: true,
+        education_category: true,
+        education_institute: true,
+        uncanceledEducation_category: true,
+        uncanceledEducation_institute: true,
+        arrivedFrom: true,
+        goneIn: true,
+        telephone: true,
+        family: true,
+        schoolMarks: true,
+        egeMarks: true,
+        entranceTest: true,
+        sport: true,
       },
-    });
-    return abits;
+    })
+    return abits
   }
 
+  @Get('full/:id')
+  async getFullOne(@Param('id', ParseIntPipe) id: number) {
+    const abits = await this.abitService.getFullAbits()
+    const abit = abits.find((abit) => abit.id == id)
+    return abit
+  }
   @Get('/:id')
   async getOne(@Param('id', ParseIntPipe) id: number) {
     const abit = await this.abitService.findOne({
@@ -70,15 +76,15 @@ export class AbitsController {
       },
       relations: {
         nationality: true,
-        residence:true,
-        family_social_status:true,
-        militaryService_rank:true,
-        militaryService_place:true,
-        militaryService_SVO:true,
-        militaryService_unit:true,
+        residence: true,
+        family_social_status: true,
+        militaryService_rank: true,
+        militaryService_place: true,
+        militaryService_SVO: true,
+        militaryService_unit: true,
         militaryCommissariat: true,
         establishedQuota: true,
-        separateQuota:true,
+        separateQuota: true,
         priorityRight: true,
         personal_achievements: true,
         admission_commission: true,
@@ -88,41 +94,52 @@ export class AbitsController {
         specialty_2: true,
         specialty_3: true,
         specialty_admission: true,
-        expulsion_reason:true,
+        expulsion_reason: true,
         cossack_society: true,
-        passport_issued_by:true,
-        education_category:true,
-        education_institute:true,
-        uncanceledEducation_category:true,
-        uncanceledEducation_institute:true,
-        arrivedFrom:true,
-        goneIn:true,   
-        telephone:true,
-        family:true,
-        schoolMarks:true,
-        egeMarks:true,
-        entranceTest:true,
-        sport:true,     
+        passport_issued_by: true,
+        education_category: true,
+        education_institute: true,
+        uncanceledEducation_category: true,
+        uncanceledEducation_institute: true,
+        arrivedFrom: true,
+        goneIn: true,
+        telephone: true,
+        family: true,
+        schoolMarks: true,
+        egeMarks: true,
+        entranceTest: true,
+        sport: true,
       },
-    });
-    return abit;
+    })
+    return abit
   }
 
   @Put(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateData: CreateAbitDto, 
-  ) { 
+    @Body() updateData: CreateAbitDto,
+  ) {
     const abit = await this.abitService.findOne({
-      where: { 
+      where: {
         id: id,
       },
-      })
-    if (updateData.lastName?updateData.lastName.charAt(0).toUpperCase() != abit.lastName.charAt(0).toUpperCase():false){
+    })
+    if (
+      updateData.lastName
+        ? updateData.lastName.charAt(0).toUpperCase() !=
+          abit.lastName.charAt(0).toUpperCase()
+        : false
+    ) {
       const newPersonalFileNumber = this.abitService.updatePersonalFileNumber(
-        abit, updateData.lastName)
-        updateData.personal_file_number = (await newPersonalFileNumber).personal_file_number
-        updateData.personal_file_number_count = (await newPersonalFileNumber).personal_file_number_count
+        abit,
+        updateData.lastName,
+      )
+      updateData.personal_file_number = (
+        await newPersonalFileNumber
+      ).personal_file_number
+      updateData.personal_file_number_count = (
+        await newPersonalFileNumber
+      ).personal_file_number_count
     }
     await this.abitService.update(
       {
@@ -130,22 +147,22 @@ export class AbitsController {
       },
       updateData,
     )
-    
+
     return await this.abitService.findOne({
-      where: { 
+      where: {
         id: id,
       },
       relations: {
         nationality: true,
-        residence:true,
-        family_social_status:true,
-        militaryService_rank:true,
-        militaryService_place:true,
-        militaryService_SVO:true,
-        militaryService_unit:true,
+        residence: true,
+        family_social_status: true,
+        militaryService_rank: true,
+        militaryService_place: true,
+        militaryService_SVO: true,
+        militaryService_unit: true,
         militaryCommissariat: true,
         establishedQuota: true,
-        separateQuota:true,
+        separateQuota: true,
         priorityRight: true,
         personal_achievements: true,
         admission_commission: true,
@@ -155,23 +172,23 @@ export class AbitsController {
         specialty_2: true,
         specialty_3: true,
         specialty_admission: true,
-        expulsion_reason:true,
+        expulsion_reason: true,
         cossack_society: true,
-        passport_issued_by:true,
-        education_category:true,
-        education_institute:true,
-        uncanceledEducation_category:true,
-        uncanceledEducation_institute:true,
-        arrivedFrom:true,
-        goneIn:true,   
-        telephone:true,
-        family:true,
-        schoolMarks:true,
-        egeMarks:true,
-        entranceTest:true,
-        sport:true,     
+        passport_issued_by: true,
+        education_category: true,
+        education_institute: true,
+        uncanceledEducation_category: true,
+        uncanceledEducation_institute: true,
+        arrivedFrom: true,
+        goneIn: true,
+        telephone: true,
+        family: true,
+        schoolMarks: true,
+        egeMarks: true,
+        entranceTest: true,
+        sport: true,
       },
-    });
+    })
   }
 
   // @Delete(':id')
@@ -179,7 +196,7 @@ export class AbitsController {
   //   await this.abitService.delete({
   //     id: id,
   //   });
-  // } 
+  // }
 
   @Get('/examGroup/:group')
   async getCommissions(@Param('group', ParseIntPipe) group: number) {
@@ -187,11 +204,13 @@ export class AbitsController {
       relations: {
         admission_examination_group: true,
       },
-    });
-      const result = abit.filter((abit) => abit.admission_examination_group != null ? abit.admission_examination_group.id === group : 0).length
-    
-    return result;
+    })
+    const result = abit.filter((abit) =>
+      abit.admission_examination_group != null
+        ? abit.admission_examination_group.id === group
+        : 0,
+    ).length
+
+    return result
   }
-
-
 }

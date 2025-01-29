@@ -1,21 +1,34 @@
 import { AbitEntity } from 'src/abits/entity/abit.entity'
-import { LocationsEntity } from 'src/locations/entity/locations.entity'
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+
+export enum SuvorovtsyType {
+  PRESIDENT = 'ПКУ',
+  SUVOROV = 'СВУ',
+  CADET = 'КК',
+  NACHIMOV = 'НВМУ',
+  PLP = 'ПЛП',
+}
 
 @Entity({ name: 'institutes' })
 export class InstitutesEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column()
-  name: string;
- 
-  @ManyToOne(() => LocationsEntity, (location) => location.id)
-  address?: LocationsEntity;
+  name: string
+
+  @Column({ nullable: true })
+  address: string
+
+  @Column({ nullable: true })
+  abbreviation: string
+
+  @Column({ type: 'enum', enum: SuvorovtsyType, nullable: true })
+  type: SuvorovtsyType
 
   @OneToMany(() => AbitEntity, (abit) => abit.education_institute)
-  abitEducation?: AbitEntity;
-  
+  abitEducation?: AbitEntity
+
   @OneToMany(() => AbitEntity, (abit) => abit.uncanceledEducation_institute)
-  abitUncanceledEducation?: AbitEntity;
+  abitUncanceledEducation?: AbitEntity
 }

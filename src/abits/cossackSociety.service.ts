@@ -13,6 +13,6 @@ export class CossackSocietyService {
   find(
     options?: FindManyOptions<CossackSocietyEntity>,
   ): Promise<CossackSocietyEntity[]> {
-    return this.abitCossackSocietyRepository.find(options);
+    return this.abitCossackSocietyRepository.find(options)
   }
 }

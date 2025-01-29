@@ -7,8 +7,11 @@ export class AbitNationalityController {
 
   @Get()
   async get() {
-    const nationality = await this.abitNationalityService.find({});
-    return nationality;
+    const nationality = await this.abitNationalityService.find({
+      relations: {
+        abit: true,
+      },
+    })
+    return nationality
   }
-
 }
