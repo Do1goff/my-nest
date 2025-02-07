@@ -4,15 +4,17 @@ import { AbitEntity } from '../../abits/entity/abit.entity'
 @Entity({ name: 'militaryPlaces' })
 export class MilitaryPlacesEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column()
-  name: string;
+  name: string
 
   @Column()
-  abbreviation: string;
+  genitive: string
+
+  @Column()
+  abbreviation: string
 
   @OneToMany(() => AbitEntity, (abit) => abit.militaryService_place)
-  abit?: AbitEntity[];
+  abit?: AbitEntity[]
 }
- 

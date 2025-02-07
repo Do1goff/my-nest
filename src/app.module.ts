@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common'
+import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ExportModule } from './_export/export.module'
 import { FilterModule } from './_filter/filter.module'
@@ -28,27 +29,23 @@ import { UsersModule } from './users/users.module'
 
 @Module({
   imports: [
-    // TypeOrmModule.forRoot({
-    //   type: 'mysql',
-    //   host: '192.168.8.40',
-    //   port: 3306,
-    //   username: 'root',
-    //   password: '12345',
-    //   database: 'Abit-2025',
-    //   entities: ['dist/**/*.entity{.ts,.js}'],
-    //   synchronize: false,
-    //   dropSchema: false,
-    // }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '12345',
-      database: 'my-sql',
-      entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: true,
-      dropSchema: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: [`.env.${process.env.NODE_ENV}`],
+    }),
+    TypeOrmModule.forRootAsync({
+      useFactory: (ConfigService: ConfigService) => ({
+        type: 'mysql',
+        host: ConfigService.get('DATABASE_HOST'),
+        port: +ConfigService.get<number>('DATABASE_PORT'),
+        username: ConfigService.get('DATABASE_USERNAME'),
+        password: ConfigService.get('DATABASE_PASSWORD'),
+        database: ConfigService.get('DATABASE_NAME'),
+        entities: ['dist/**/*.entity{.ts,.js}'],
+        synchronize: false,
+        dropSchema: false,
+      }),
+      inject: [ConfigService],
     }),
     ExportModule,
     FilterModule,

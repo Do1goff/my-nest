@@ -209,6 +209,9 @@ export class AbitEntity {
   @Column({ nullable: true })
   militaryService_post: string
 
+  @Column({ nullable: true })
+  militaryService_post_genitive: string
+
   @ManyToOne(() => MilitaryPlacesEntity)
   militaryService_place: MilitaryPlacesEntity
 
@@ -260,7 +263,7 @@ export class AbitEntity {
   @Column({
     type: 'enum',
     enum: RecruitmentType,
-    nullable: true,
+    default: 'Основная',
   })
   recruitment: RecruitmentType
 

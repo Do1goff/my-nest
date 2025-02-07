@@ -7,7 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common'
-import { CreatePersonalAchievementsDto } from './dto/CreatePersonalAchievementsDto.dto'
+// import { CreatePersonalAchievementsDto } from './dto/CreatePersonalAchievementsDto.dto'
 import { PersonalAchievementsService } from './personalAchievements.service'
 
 @Controller('personal_achievements')
@@ -25,19 +25,20 @@ export class PersonalAchievementsController {
       relations: {
         achievement: true,
       },
-    });
+    })
   }
   @Put(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateData: CreatePersonalAchievementsDto,
+    @Body()
+    updateData: { abitId: number; achievementId: number; test: boolean },
   ) {
     await this.personalAchievementsService.update(
       {
         abitAchievementId: id,
       },
       updateData,
-    );
+    )
     return await this.personalAchievementsService.findOne({
       where: {
         abitAchievementId: id,
@@ -45,12 +46,14 @@ export class PersonalAchievementsController {
       relations: {
         achievement: true,
       },
-    });
+    })
   }
 
   @Post()
-  async create(@Body() data: CreatePersonalAchievementsDto) {
-    const achievement = this.personalAchievementsService.create(data);
+  async create(
+    @Body() data: { abitId: number; achievementId: number; test: boolean },
+  ) {
+    const achievement = this.personalAchievementsService.create(data)
     return await this.personalAchievementsService.findOne({
       where: {
         abitAchievementId: (await achievement).abitAchievementId,
@@ -58,6 +61,6 @@ export class PersonalAchievementsController {
       relations: {
         achievement: true,
       },
-    });
+    })
   }
 }

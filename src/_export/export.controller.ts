@@ -209,8 +209,6 @@ export class ExportController {
         __dirname,
         '..',
         '..',
-        '..',
-        '..',
         'EXPORT_FILES',
         'egeCSV.csv',
       ),

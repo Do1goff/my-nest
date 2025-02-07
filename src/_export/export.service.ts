@@ -352,8 +352,6 @@ export class ExportService {
       __dirname,
       '..',
       '..',
-      '..',
-      '..',
       'EXPORT_FILES',
       'abits.xlsx',
     )
@@ -367,8 +365,6 @@ export class ExportService {
     const fileName = data.fileName
     const filePath = path.resolve(
       __dirname,
-      '..',
-      '..',
       '..',
       '..',
       'TEMPLATE_FILES',
@@ -389,8 +385,6 @@ export class ExportService {
       __dirname,
       '..',
       '..',
-      '..',
-      '..',
       'EXPORT_FILES',
       fileName,
     )
@@ -402,8 +396,6 @@ export class ExportService {
     const fileName = data.fileName
     const filePath = path.resolve(
       __dirname,
-      '..',
-      '..',
       '..',
       '..',
       'TEMPLATE_FILES',
@@ -420,8 +412,6 @@ export class ExportService {
       __dirname,
       '..',
       '..',
-      '..',
-      '..',
       'EXPORT_FILES',
       fileName,
     )
@@ -432,8 +422,6 @@ export class ExportService {
     const fileName = data.fileName
     const filePath = path.resolve(
       __dirname,
-      '..',
-      '..',
       '..',
       '..',
       'TEMPLATE_FILES',
@@ -449,8 +437,6 @@ export class ExportService {
     const buffer = template.generate({ type: 'nodebuffer' })
     let filePathNew = path.resolve(
       __dirname,
-      '..',
-      '..',
       '..',
       '..',
       'EXPORT_FILES',
