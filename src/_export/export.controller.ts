@@ -194,14 +194,23 @@ export class ExportController {
   }
 
   @Post('/egeCSV')
-  async egeToCsv(@Res() res: Response) {
-    const abits = await this.abitService.getFullAbits()
+  async egeToCsv(@Body() who: any, @Res() res: Response) {
+    const abits = who
+    // const abits = await this.abitService.getFullAbits()
     let info = ''
+    let t = false
     for (let i of abits) {
       if (i.passport_num) {
-        info =
-          info +
-          `${i.lastName};${i.firstName};${i.surName};${i.passport_series};${i.passport_num}\n`
+        if (t) {
+          info =
+            info +
+            `\n${i.lastName};${i.firstName};${i.surName};${i.passport_series};${i.passport_num}`
+        } else {
+          t = true
+          info =
+            info +
+            `${i.lastName};${i.firstName};${i.surName};${i.passport_series};${i.passport_num}`
+        }
       }
     }
     const data = {

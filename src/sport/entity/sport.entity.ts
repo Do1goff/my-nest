@@ -5,21 +5,20 @@ import { ExercisesEntity } from './exercises.entity'
 @Entity({ name: 'sport' })
 export class SportEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column()
-  abitId: number;
+  abitId: number
 
   @Column()
-  score: number;
+  score: number
 
   @Column()
-  result: string;
+  result: string
 
-  @ManyToOne(() => AbitEntity, (abit) => abit.sport)
-  abit?: AbitEntity;
+  @ManyToOne(() => AbitEntity, (abit) => abit.sport, { onDelete: 'CASCADE' })
+  abit?: AbitEntity
 
   @ManyToOne(() => ExercisesEntity, (exercise) => exercise.sport)
-  exercises?: ExercisesEntity;
- 
+  exercises?: ExercisesEntity
 }

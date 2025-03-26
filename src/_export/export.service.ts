@@ -288,7 +288,6 @@ export class ExportService {
         uncanceledEducation_category: true,
         uncanceledEducation_institute: true,
         arrivedFrom: true,
-        goneIn: true,
       },
     })
 
@@ -319,7 +318,6 @@ export class ExportService {
       // phone1:abit.phone1,
       // phone2:abit.phone2,
       militaryCommissariat: abit.militaryCommissariat?.name,
-      militaryCommissariat_name: abit.militaryCommissariat?.name_official,
       militaryCommissariat_region: abit.militaryCommissariat?.region,
       militaryCommissariat_address: abit.militaryCommissariat.address,
       militaryDistrict:

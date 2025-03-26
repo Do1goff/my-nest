@@ -77,9 +77,20 @@ export class CreateAbitDto {
   @IsDateString()
   personal_file_date_reg: Date
 
-  // @IsOptional()
-  // @IsNumber()
-  // personal_file_arm: number;
+  @IsOptional()
+  @IsString()
+  personal_file_reg_MC: string
+
+  @IsOptional()
+  @IsDateString()
+  personal_file_date_reg_MC: Date
+
+  @IsOptional()
+  @IsNumber()
+  personal_file_arm: number
+  @IsOptional()
+  @IsBoolean()
+  personal_file_get: boolean
 
   @IsOptional()
   @IsEnum(LdType)
@@ -290,12 +301,12 @@ export class CreateAbitDto {
   uncanceledEducation_date_end: Date
 
   @IsOptional()
-  @IsNumber()
-  uncanceledEducation_semesters_end: number
+  @IsString()
+  uncanceledEducation_semesters_end: string
 
   @IsOptional()
-  @IsNumber()
-  uncanceledEducation_course: number
+  @IsString()
+  uncanceledEducation_course: string
 
   @IsOptional()
   @IsString()

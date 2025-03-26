@@ -4,35 +4,35 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 @Entity({ name: 'family' })
 export class FamilyEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column()
-  abitId: number;
+  abitId: number
 
   @Column()
-  kinship: string;
+  kinship: string
 
   @Column()
-  firstName: string = '';
+  firstName: string = ''
 
   @Column()
-  lastName: string = '';
-
-  @Column({nullable:true})
-  lastName_second: string;
+  lastName: string = ''
 
   @Column({ nullable: true })
-  surName: string;
+  lastName_second: string
 
   @Column({ nullable: true })
-  birthday: Date;
+  surName: string
 
-  @Column()
-  status: string = '';
+  @Column({ nullable: true })
+  birthday: Date
+
+  @Column({ nullable: true })
+  status: string = ''
 
   @Column({ default: false })
-  fail: boolean = false;
+  fail: boolean = false
 
-  @ManyToOne(() => AbitEntity, (abit) => abit.family)
-  abit?: AbitEntity;
+  @ManyToOne(() => AbitEntity, (abit) => abit.family, { onDelete: 'CASCADE' })
+  abit?: AbitEntity
 }

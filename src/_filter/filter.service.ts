@@ -28,9 +28,9 @@ export class FilterService {
 
           for (var v in values) {
             if (compare == 'includes') {
-              item[field].includes(values[v]) ? (test = true) : (test = test)
+              item[field]?.includes(values[v]) ? (test = true) : (test = test)
             } else if (compare == 'notIncludes') {
-              !item[field].includes(values[v]) ? (test = true) : (test = test)
+              !item[field]?.includes(values[v]) ? (test = true) : (test = test)
             } else if (compare == '=') {
               item[field] == values[v] ? (test = true) : (test = test)
             } else if (compare == '>') {
@@ -45,6 +45,10 @@ export class FilterService {
               item[field] == null ? (test = true) : (test = test)
             } else if (compare == 'notNull') {
               item[field] != null ? (test = true) : (test = test)
+            } else if (compare == 'true') {
+              item[field] == true ? (test = true) : (test = test)
+            } else if (compare == 'false') {
+              item[field] == false ? (test = true) : (test = test)
             }
           }
           return test

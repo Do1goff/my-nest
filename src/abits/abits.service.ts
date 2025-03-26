@@ -58,7 +58,7 @@ export class AbitService {
         education_category: true,
         uncanceledEducation_category: true,
         arrivedFrom: true,
-        goneIn: true,
+
         telephone: true,
         family: true,
         residence: true,
@@ -106,6 +106,9 @@ export class AbitService {
       telephone: abit.telephone,
       phone_1: abit.telephone[0]?.number,
       phone_2: abit.telephone[1]?.number,
+      region_date_admission: regions.find(
+        (reg) => reg.region == abit.militaryCommissariat?.region,
+      )?.date_admission,
       residence: abit.residence,
       residence_region: abit.residence?.region?.name,
       residence_name: `${
@@ -132,7 +135,12 @@ export class AbitService {
       personal_file_number_count: abit.personal_file_number_count,
       personal_file_reg: abit.personal_file_reg,
       personal_file_date_reg: abit.personal_file_date_reg,
+      personal_file_reg_MC: abit.personal_file_reg_MC,
+      personal_file_date_reg_MC: abit.personal_file_date_reg_MC,
       personal_file_existence: abit.personal_file_existence,
+      personal_file_fulled: abit.personal_file_fulled,
+      personal_file_arm: abit.personal_file_arm,
+      personal_file_get: abit.personal_file_get,
       family_status: abit.family_status,
       family_address: abit.family_address,
       family_social_status: abit.family_social_status?.name,
@@ -181,18 +189,38 @@ export class AbitService {
       militaryService_place_genitive: abit.militaryService_place?.genitive,
       militaryService_unit: abit.militaryService_unit?.name,
       militaryService_unit_address: abit.militaryService_unit?.address,
+      militaryService_unit_mail: abit.militaryService_unit?.mail,
       militaryService_category: abit.militaryService_category,
       militaryService_dismissed: abit.militaryService_dismissed,
       militaryService_mobilization: abit.militaryService_mobilization,
       militaryService_collection: abit.militaryService_collection,
       militaryService_SVO: abit.militaryService_SVO?.name,
       militaryCommissariat: abit.militaryCommissariat?.name,
-      militaryCommissariat_name: abit.militaryCommissariat?.name_official,
       militaryCommissariat_region: abit.militaryCommissariat?.region,
       militaryCommissariat_region_address: abit.militaryCommissariat
-        ? regions.find((reg) => reg.region == abit.militaryCommissariat?.region)
-            ?.name
+        ? `${
+            regions.find(
+              (reg) => reg.region == abit.militaryCommissariat?.region,
+            )?.statusInEnd
+              ? (regions.find(
+                  (reg) => reg.region == abit.militaryCommissariat?.region,
+                )?.name ?? '')
+              : (regions.find(
+                  (reg) => reg.region == abit.militaryCommissariat?.region,
+                )?.status.name ?? '')
+          } ${
+            regions.find(
+              (reg) => reg.region == abit.militaryCommissariat?.region,
+            )?.statusInEnd
+              ? (regions.find(
+                  (reg) => reg.region == abit.militaryCommissariat?.region,
+                )?.status.name ?? '')
+              : (regions.find(
+                  (reg) => reg.region == abit.militaryCommissariat?.region,
+                )?.name ?? '')
+          }`
         : '',
+
       militaryCommissariat_address: abit.militaryCommissariat?.address,
       militaryDistrict:
         abit.militaryCommissariat?.militaryDistrict?.abbreviation,
@@ -358,14 +386,15 @@ export class AbitService {
       qualificationExam_group: abit.qualificationExam_group,
       arrivedFrom: abit.arrivedFrom?.abbreviation,
       arrivedFrom_name: abit.arrivedFrom?.name,
-      goneIn: abit.goneIn?.abbreviation,
-      goneIn_name: abit.goneIn?.name,
+      goneIn: abit.goneIn,
       call_number: abit.call_number,
       call_date: abit.call_date,
       call_result: abit.call_result,
       call_note: abit.call_note,
       collect_date_admission: abit.collect_date_admission,
       collect_food: abit.collect_food,
+      contact_date: abit.contact_date,
+      contact_result: abit.contact_result,
 
       createdAt: abit.createdAt,
     }))
@@ -415,33 +444,38 @@ export class AbitService {
 
   async create(abitDetails: CreateAbitDto): Promise<AbitEntity> {
     const newAbit = this.abitRepository.create(abitDetails)
-
-    const abits = await this.abitRepository.find({})
-    const filteredAbits = abits.filter(
-      (abit) =>
-        abit.lastName.charAt(0).toUpperCase() ===
-        newAbit.lastName.charAt(0).toUpperCase(),
-    )
-
-    if (filteredAbits[0] !== undefined) {
-      const maxCount = Math.max(
-        ...filteredAbits.map((item) =>
-          parseInt(item.personal_file_number_count.slice(2, 5), 10),
-        ),
+    if (abitDetails.personal_file_get) {
+      newAbit.personal_file_arm = await this.updatePersonalFileArm()
+      const abits = await this.abitRepository.find({})
+      const filteredAbits = abits.filter(
+        (abit) =>
+          abit.lastName.charAt(0).toUpperCase() ===
+          newAbit.lastName.charAt(0).toUpperCase(),
       )
-      newAbit.personal_file_number_count = `${newAbit.lastName
-        .charAt(0)
-        .toUpperCase()}-${String(maxCount + 1).padStart(3, '0')}`
-      newAbit.personal_file_number = `${newAbit.lastName
-        .charAt(0)
-        .toUpperCase()}-${maxCount + 1}`
+
+      if (filteredAbits[0] !== undefined) {
+        const maxCount = Math.max(
+          ...filteredAbits.map((item) =>
+            parseInt(item.personal_file_number_count.slice(2, 5), 10),
+          ),
+        )
+        newAbit.personal_file_number_count = `${newAbit.lastName
+          .charAt(0)
+          .toUpperCase()}-${String(maxCount + 1).padStart(3, '0')}`
+        newAbit.personal_file_number = `${newAbit.lastName
+          .charAt(0)
+          .toUpperCase()}-${maxCount + 1}`
+      } else {
+        newAbit.personal_file_number_count = `${newAbit.lastName
+          .charAt(0)
+          .toUpperCase()}-${String(1).padStart(3, '0')}`
+        newAbit.personal_file_number = `${newAbit.lastName
+          .charAt(0)
+          .toUpperCase()}-${1}`
+      }
     } else {
-      newAbit.personal_file_number_count = `${newAbit.lastName
-        .charAt(0)
-        .toUpperCase()}-${String(1).padStart(3, '0')}`
-      newAbit.personal_file_number = `${newAbit.lastName
-        .charAt(0)
-        .toUpperCase()}-${1}`
+      newAbit.personal_file_number_count = ` -0`
+      newAbit.personal_file_number = ` -0`
     }
 
     return this.abitRepository.save(newAbit)
@@ -487,8 +521,17 @@ export class AbitService {
     }
     return newAbit
   }
+  async updatePersonalFileArm() {
+    const abits = await this.abitRepository.find({})
+    let arm = Math.max(
+      ...abits.map((abit) =>
+        abit.personal_file_arm ? abit.personal_file_arm : 0,
+      ),
+    )
+    return arm + 1
+  }
 
-  // delete(criteria: FindOptionsWhere<AbitEntity>) {
-  //   return this.abitRepository.delete(criteria);
-  // }
+  delete(criteria: FindOptionsWhere<AbitEntity>) {
+    return this.abitRepository.delete(criteria)
+  }
 }

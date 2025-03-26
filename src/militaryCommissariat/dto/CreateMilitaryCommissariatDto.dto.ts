@@ -1,40 +1,23 @@
-import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator'
+import { IsOptional, IsString } from 'class-validator'
 
 export class CreateMilitaryCommissariatDto {
+  @IsOptional()
   @IsString()
-  name: string;
-
-  @IsString()
-  name_official: string;
-
-  @IsNumber()
-  level: number;
-
-  @IsString()
-  type: string;
-
-  @IsBoolean()
-  municipal: boolean;
-
-  @IsNumber()
-  category: number;
-
-  @IsString()
-  region: string;
+  region: string
 
   @IsOptional()
   @IsString()
-  telephone: string;
+  telephone: string
 
   @IsOptional()
   @IsString()
-  director: string;
+  director: string
 
   @IsString()
   @IsOptional()
-  address: string;
+  address: string
 
   @IsOptional()
   @IsString()
-  email: string;
+  email: string
 }

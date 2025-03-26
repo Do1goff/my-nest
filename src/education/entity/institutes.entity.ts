@@ -21,6 +21,9 @@ export class InstitutesEntity {
   address: string
 
   @Column({ nullable: true })
+  region: string
+
+  @Column({ nullable: true })
   abbreviation: string
 
   @Column({ type: 'enum', enum: SuvorovtsyType, nullable: true })

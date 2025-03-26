@@ -18,26 +18,25 @@ export class SchoolMarksService {
   ) {}
 
   async create(data: CreateSchoolMarksDto): Promise<SchoolMarksEntity> {
-    const schoolMark = this.schoolMarksRepository.create(data);
-    return this.schoolMarksRepository.save(schoolMark);
+    const schoolMark = this.schoolMarksRepository.create(data)
+    return this.schoolMarksRepository.save(schoolMark)
   }
 
   find(
     options?: FindManyOptions<SchoolMarksEntity>,
   ): Promise<SchoolMarksEntity[]> {
-    return this.schoolMarksRepository.find(options);
+    return this.schoolMarksRepository.find(options)
   }
   findOne(
     options: FindOneOptions<SchoolMarksEntity>,
   ): Promise<SchoolMarksEntity> {
-    return this.schoolMarksRepository.findOne(options);
+    return this.schoolMarksRepository.findOne(options)
   }
 
   update(
     criteria: FindOptionsWhere<SchoolMarksEntity>,
     partialEntity: QueryDeepPartialEntity<SchoolMarksEntity>,
   ) {
-    return this.schoolMarksRepository.update(criteria, partialEntity);
+    return this.schoolMarksRepository.update(criteria, partialEntity)
   }
 }
- 

@@ -5,18 +5,19 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 @Entity({ name: 'school_marks' })
 export class SchoolMarksEntity {
   @PrimaryGeneratedColumn()
-  abitSubjectId: number;
+  abitSubjectId: number
 
   @Column()
-  abitId: number;
+  abitId: number
 
   @Column()
-  mark: number;
+  mark: number
 
-  @ManyToOne(() => AbitEntity, (abit) => abit.schoolMarks)
-  abit?: AbitEntity;
+  @ManyToOne(() => AbitEntity, (abit) => abit.schoolMarks, {
+    onDelete: 'CASCADE',
+  })
+  abit?: AbitEntity
 
   @ManyToOne(() => SubjectsEntity, (subject) => subject.schoolMarks)
-  subject?: SubjectsEntity;
- 
+  subject?: SubjectsEntity
 }

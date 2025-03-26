@@ -4,17 +4,17 @@ import { PersonalAchievementsEntity } from './personalAchievements.entity'
 @Entity({ name: 'list_achievements' })
 export class ListAchievementsEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column()
-  name: string;
+  name: string
 
   @Column({ default: 0 })
-  value: number = 0;
+  value: number = 0
 
   @OneToMany(
     () => PersonalAchievementsEntity,
     (personalAchievements) => personalAchievements.achievement,
   )
-  personalAchievements?: PersonalAchievementsEntity[];
+  personalAchievements?: PersonalAchievementsEntity[]
 }

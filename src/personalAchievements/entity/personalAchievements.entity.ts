@@ -5,20 +5,25 @@ import { ListAchievementsEntity } from './listAchievements.entity'
 @Entity({ name: 'personal_achievements' })
 export class PersonalAchievementsEntity {
   @PrimaryGeneratedColumn()
-  abitAchievementId: number;
+  abitAchievementId: number
 
   @Column()
-  abitId: number;
+  abitId: number
 
   @Column()
-  achievementId: number;
+  achievementId: number
 
   @Column({ default: false })
-  test: boolean;
+  test: boolean
 
-  @ManyToOne(() => AbitEntity, (abit) => abit.personal_achievements)
-  abit?: AbitEntity[];
+  @ManyToOne(() => AbitEntity, (abit) => abit.personal_achievements, {
+    onDelete: 'CASCADE',
+  })
+  abit?: AbitEntity[]
 
-  @ManyToOne(() => ListAchievementsEntity, (achievement) => achievement.personalAchievements)
-  achievement?: ListAchievementsEntity;
+  @ManyToOne(
+    () => ListAchievementsEntity,
+    (achievement) => achievement.personalAchievements,
+  )
+  achievement?: ListAchievementsEntity
 }

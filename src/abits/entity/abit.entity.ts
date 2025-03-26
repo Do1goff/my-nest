@@ -108,6 +108,7 @@ export enum SignType {
 export enum RecruitmentType {
   MAIN = 'Основная',
   ADDITIONAL_SET = 'Донабор',
+  ADDITIONAL_SET_2 = 'Донабор 2',
   CADET = 'Кадет',
 }
 
@@ -168,17 +169,28 @@ export class AbitEntity {
   @Column({ nullable: true })
   personal_file_date_reg: Date
 
-  @Column({ type: 'enum', enum: LdType, nullable: true })
-  personal_file_existence?: LdType
+  @Column({ nullable: true })
+  personal_file_reg_MC: string
 
-  // // /?
-  //   @Column()
-  //   personal_file_arm: number = 0;
+  @Column({ nullable: true })
+  personal_file_date_reg_MC: Date
+
+  @Column({ type: 'enum', enum: LdType, default: LdType.ABSENT })
+  personal_file_existence?: LdType = LdType.ABSENT
+
+  @Column({ type: 'simple-array', nullable: true })
+  personal_file_fulled?: string[]
+
+  @Column({ default: false })
+  personal_file_get: boolean = false
+  // /?
+  @Column({ nullable: true, unique: true })
+  personal_file_arm: number
 
   @Column({
     type: 'enum',
     enum: FamilyStatusType,
-    nullable: true,
+    default: 'Холост',
   })
   family_status?: FamilyStatusType
 
@@ -270,7 +282,7 @@ export class AbitEntity {
   @Column({
     type: 'enum',
     enum: SignType,
-    nullable: true,
+    default: 'Основной',
   })
   sign: SignType
 
@@ -408,10 +420,10 @@ export class AbitEntity {
   uncanceledEducation_period_study: string
 
   @Column({ nullable: true })
-  uncanceledEducation_course: number
+  uncanceledEducation_course: string
 
   @Column({ nullable: true })
-  uncanceledEducation_semesters_end: number
+  uncanceledEducation_semesters_end: string
 
   @ManyToOne(() => InstitutesEntity)
   uncanceledEducation_institute: InstitutesEntity
@@ -449,8 +461,8 @@ export class AbitEntity {
   @ManyToOne(() => MilitaryInstituteEntity)
   arrivedFrom?: MilitaryInstituteEntity
 
-  @ManyToOne(() => MilitaryInstituteEntity)
-  goneIn?: MilitaryInstituteEntity
+  @Column({ nullable: true })
+  goneIn: string
   ///////////////////////////////////////////////////////////////
   @Column({ nullable: true })
   call_number: string
@@ -475,6 +487,12 @@ export class AbitEntity {
 
   @Column({ default: true })
   access: boolean
+  ////////////////////////////////
+  @Column({ nullable: true })
+  contact_result: string
+
+  @Column({ nullable: true })
+  contact_date: Date
 
   @CreateDateColumn()
   createdAt: Date

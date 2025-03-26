@@ -5,22 +5,20 @@ import { SubjectsEntity } from '../../abits/entity/subjects.entity'
 @Entity({ name: 'ege_marks' })
 export class EgeMarksEntity {
   @PrimaryGeneratedColumn()
-  abitSubjectId: number;
+  abitSubjectId: number
 
   @Column()
-  abitId: number;
+  abitId: number
 
   @Column()
-  mark: number;
+  mark: number
 
-  @Column() 
-  date: Date;
+  @Column()
+  date: Date
 
-  @ManyToOne(() => AbitEntity, (abit) => abit.egeMarks)
-  abit?: AbitEntity;
+  @ManyToOne(() => AbitEntity, (abit) => abit.egeMarks, { onDelete: 'CASCADE' })
+  abit?: AbitEntity
 
   @ManyToOne(() => SubjectsEntity, (subject) => subject.egeMarks)
-  subject?: SubjectsEntity;
- 
-
+  subject?: SubjectsEntity
 }

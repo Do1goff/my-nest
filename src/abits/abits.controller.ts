@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -50,7 +51,7 @@ export class AbitsController {
         uncanceledEducation_category: true,
         uncanceledEducation_institute: true,
         arrivedFrom: true,
-        goneIn: true,
+
         telephone: true,
         family: true,
         schoolMarks: true,
@@ -102,7 +103,7 @@ export class AbitsController {
         uncanceledEducation_category: true,
         uncanceledEducation_institute: true,
         arrivedFrom: true,
-        goneIn: true,
+
         telephone: true,
         family: true,
         schoolMarks: true,
@@ -125,7 +126,7 @@ export class AbitsController {
       },
     })
     if (
-      updateData.lastName
+      updateData.lastName && updateData.personal_file_get == true
         ? updateData.lastName.charAt(0).toUpperCase() !=
           abit.lastName.charAt(0).toUpperCase()
         : false
@@ -140,6 +141,31 @@ export class AbitsController {
       updateData.personal_file_number_count = (
         await newPersonalFileNumber
       ).personal_file_number_count
+    }
+    if (
+      updateData.personal_file_get
+        ? abit.personal_file_number == ' -0' &&
+          updateData.personal_file_get == true
+        : false
+    ) {
+      const newPersonalFileNumber = this.abitService.updatePersonalFileNumber(
+        abit,
+        abit.lastName,
+      )
+      updateData.personal_file_number = (
+        await newPersonalFileNumber
+      ).personal_file_number
+      updateData.personal_file_number_count = (
+        await newPersonalFileNumber
+      ).personal_file_number_count
+    }
+    if (
+      updateData.personal_file_get
+        ? abit.personal_file_arm == null && updateData.personal_file_get == true
+        : false
+    ) {
+      updateData.personal_file_arm =
+        await this.abitService.updatePersonalFileArm()
     }
     await this.abitService.update(
       {
@@ -180,7 +206,7 @@ export class AbitsController {
         uncanceledEducation_category: true,
         uncanceledEducation_institute: true,
         arrivedFrom: true,
-        goneIn: true,
+
         telephone: true,
         family: true,
         schoolMarks: true,
@@ -191,12 +217,12 @@ export class AbitsController {
     })
   }
 
-  // @Delete(':id')
-  // async delete(@Param('id') id: number) {
-  //   await this.abitService.delete({
-  //     id: id,
-  //   });
-  // }
+  @Delete(':id')
+  async delete(@Param('id') id: number) {
+    await this.abitService.delete({
+      id: id,
+    })
+  }
 
   @Get('/examGroup/:group')
   async getCommissions(@Param('group', ParseIntPipe) group: number) {

@@ -6,24 +6,23 @@ import { FormEntranceTestEntity } from './formEntranceTest.entity'
 @Entity({ name: 'entrance_test' })
 export class EntranceTestEntity {
   @PrimaryGeneratedColumn()
-  abitSubjectId: number;
+  abitSubjectId: number
 
   @Column()
-  abitId: number;
+  abitId: number
 
   @Column()
-  mark: number;
+  mark: number
 
   @Column()
-  date: Date;
+  date: Date
 
-  @ManyToOne(() => AbitEntity, (abit) => abit.id)
-  abit?: AbitEntity;
+  @ManyToOne(() => AbitEntity, (abit) => abit.id, { onDelete: 'CASCADE' })
+  abit?: AbitEntity
 
   @ManyToOne(() => SubjectsEntity, (subject) => subject.entranceTest)
-  subject?: SubjectsEntity;
+  subject?: SubjectsEntity
 
   @ManyToOne(() => FormEntranceTestEntity, (form) => form.id)
-  form?: FormEntranceTestEntity;
+  form?: FormEntranceTestEntity
 }
-
